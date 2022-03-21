@@ -1,3 +1,6 @@
+#ifndef Client
+#define Client
+
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -9,4 +12,12 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <assert.h>
+#include"Stru.h"
+#include"Man.h"
+/*
+    通信函数
+*/
 
+int client(struct input_client);
+
+#endif
