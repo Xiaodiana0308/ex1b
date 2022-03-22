@@ -1,5 +1,5 @@
-#ifndef Client
-#define Client
+#ifndef Server
+#define Server
 
 #include <iostream>
 #include <stdio.h>
@@ -12,9 +12,10 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <assert.h>
-#include"Stru.h"
-#include"Man.h"
+#include"./Stru.h"
 
-int client(class input_client in_clie);//通信函数
+#define Length 1000 //缓冲区范围设置
+
+int server(class get_server get_serv,struct name_password *npd);//通信函数
 
 #endif

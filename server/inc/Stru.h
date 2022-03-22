@@ -4,16 +4,18 @@
 #include <iostream>
 #include <string>
 
-class input_client{//客户端调用通信类
+class get_server{
     public:
-        char ip_1[20];//目标服务端ip地址
+        char ip_1[20];//服务端ip地址，不使用
         int port_1;//服务端端口
-        short beg;//请求类型[赋值作用]
-        
+};
+
+class get_client{//存储客户端通信类
+    public:
+        short beg;//请求类型报头
         char filename[25];//要操作的文件名，包括目录
-        char name[15];//输入用户名
-        char password[15];//输入的密码
-        int permit;//用户登录判定，仅在该字符为1情况下，才允许传输数据，通过返回的pack赋值[赋值作用]
+        char name[15];//用户名
+        char password[15];//用户密码
 };
 
 struct packet{//TCP数据包 报头+内容
@@ -27,5 +29,9 @@ struct packet{//TCP数据包 报头+内容
     char text[1000];//发送数据内容
 };
 
+struct name_password{//用户信息结构体,20个上限
+    char name[20][15];
+    char password[20][15];
+};
 
 #endif
