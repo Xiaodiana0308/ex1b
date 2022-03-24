@@ -45,6 +45,8 @@ int server(class get_server get_serv,struct name_password *npd)
     //数据交互
     class packet get_text;//接收数据包
     class packet send_text;//发送数据包
+    class get_client save_c;//登录成功后存储用户信息
+    memset(&save_c,'\0',sizeof(save_c));
     int iret;//接收、发送总数据大小
     int iname=0;//注册次序
     int break_two;//跳出两个循环用
@@ -84,6 +86,17 @@ int server(class get_server get_serv,struct name_password *npd)
                     break;
                 }
                 //注册成功
+                memcpy(&save_c.name,get_text.name,sizeof(get_text.name));
+                printf("注册用户名:%s\n",get_text.name);
+                memcpy(&save_c,get_text.password,sizeof(get_text.password));
+                if(list_mkdir(&save_c)!=0){//创建用户空间
+                    const char *wrong="Create_path_failed";//创建文件失败
+                    send_text.beg=10;
+                    memcpy(&send_text.text,wrong,strlen(wrong));
+                    break;
+                }
+                memset(&save_c,'\0',sizeof(save_c));//及时清空
+
                 memcpy(&(*npd).name[iname],get_text.name,sizeof(get_text.name));
                 memcpy(&(*npd).password[iname],get_text.password,sizeof(get_text.password));
                 send_text.beg=11;
@@ -97,6 +110,13 @@ int server(class get_server get_serv,struct name_password *npd)
                 {
                     if(strcmp((*npd).name[i],get_text.name)==0){
                         if(strcmp((*npd).password[i],get_text.password)==0){
+                            //注入用户信息
+                            memcpy(&save_c.name,get_text.name,sizeof(get_text.name));
+                            memcpy(&save_c,get_text.password,sizeof(get_text.password));//整个连接过程中有效
+                            printf("登录用户名:%s\n",get_text.name);
+                            list_00(&save_c);//自动进入目录
+
+                            memcpy(&send_text.text,save_c.filename,sizeof(save_c.filename));
                             send_text.lock=1;//认证成功
                             send_text.beg=12;
                             break_two=1;
@@ -114,7 +134,80 @@ int server(class get_server get_serv,struct name_password *npd)
                 memcpy(&send_text.text,wrong,strlen(wrong));
                 break;
             }
+            case 3:{//退出
+                printf("收到注销请求\n");
+                close(listenfd);
+                close(clientfd);
+                return 0;
+                break;
+            }
             case 4:{//目录操作模式
+                switch (get_text.beg_list)
+                {
+                    case 1:{//获得目录下所有文件名
+                        printf("收到查看目录文件请求\n");
+                        struct filename fn;
+                        memset(&fn,'\0',sizeof(fn));
+                        list_01(&save_c,&fn);
+                        char fn_c1[500]={0};
+                        char fn_c2[500]={0};
+                        if(fn.typen[0]!=0){//读取到了[注意采用第0个位置的文件类型判断]
+                            int i=0;
+                            while(fn.typen[i]!=0)
+                            {
+                                memset(&fn_c2,'\0',sizeof(fn_c2));//清空2
+                                memcpy(&fn_c2,fn_c1,strlen(fn_c1));//存入2
+                                memset(&fn_c1,'\0',sizeof(fn_c1));//清空1
+                                sprintf(fn_c1,"%s%s %d ",fn_c2,fn.filen[i],fn.typen[i]);//给1接上：  文件名,文件类型,
+                                i++;
+                            }
+                            memcpy(&send_text.text,fn_c1,sizeof(fn_c1));
+                        }
+                        send_text.beg=14;
+                        send_text.beg_list=1;
+                        break;
+                    }
+                    case 2:{//进入目录
+                        int list_2;
+                        if((list_2=list_02(&save_c,get_text.text))!=0){//无法进入
+                            const char *wrong="Directory_does_not_exist";//目录不存在
+                            send_text.beg=10;
+                            memcpy(&send_text.text,wrong,strlen(wrong));
+                            break;
+                        }
+                        send_text.beg=14;
+                        send_text.beg_list=2;
+                        break;
+                    }
+                    case 3:{//返回上一目录
+                        int list_3;
+                        if((list_3=list_03(&save_c))!=0){//无法进入
+                            const char *wrong="Unable_to_access_unauthorized_space";//无法访问未授权的空间
+                            send_text.beg=10;
+                            memcpy(&send_text.text,wrong,strlen(wrong));
+                            break;
+                        }
+                        send_text.beg=14;
+                        send_text.beg_list=3;
+                        break;
+                    }
+                    case 4:{//新建文件夹
+                    int list_4;
+                        if((list_4=list_04(&save_c,get_text.text))!=0){//无法进入
+                            const char *wrong="Directory_does_not_exist";//目录不存在
+                            send_text.beg=10;
+                            memcpy(&send_text.text,wrong,strlen(wrong));
+                            break;
+                        }
+                        send_text.beg=14;
+                        send_text.beg_list=4;
+                        break;
+                        break;
+                    }
+                    case 5:{
+                        break;
+                    }
+                }
                 break;
             }
             case 5:{//下载模式

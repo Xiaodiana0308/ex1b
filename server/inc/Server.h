@@ -13,8 +13,7 @@
 #include <errno.h>
 #include <assert.h>
 #include"./Stru.h"
-
-#define Length 1000 //缓冲区范围设置
+#include"./Method.h"
 
 int server(class get_server get_serv,struct name_password *npd);//通信函数
 

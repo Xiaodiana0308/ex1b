@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/method.o: src/method.cpp.o
+
+.PHONY : src/method.o
+
+# target to build an object file
+src/method.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/method.cpp.o
+.PHONY : src/method.cpp.o
+
+src/method.i: src/method.cpp.i
+
+.PHONY : src/method.i
+
+# target to preprocess a source file
+src/method.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/method.cpp.i
+.PHONY : src/method.cpp.i
+
+src/method.s: src/method.cpp.s
+
+.PHONY : src/method.s
+
+# target to generate assembly for a file
+src/method.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/method.cpp.s
+.PHONY : src/method.cpp.s
+
 src/server.o: src/server.cpp.o
 
 .PHONY : src/server.o
@@ -231,6 +258,33 @@ src/stru.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/stru.cpp.s
 .PHONY : src/stru.cpp.s
 
+src/text.o: src/text.cpp.o
+
+.PHONY : src/text.o
+
+# target to build an object file
+src/text.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/text.cpp.o
+.PHONY : src/text.cpp.o
+
+src/text.i: src/text.cpp.i
+
+.PHONY : src/text.i
+
+# target to preprocess a source file
+src/text.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/text.cpp.i
+.PHONY : src/text.cpp.i
+
+src/text.s: src/text.cpp.s
+
+.PHONY : src/text.s
+
+# target to generate assembly for a file
+src/text.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/text.cpp.s
+.PHONY : src/text.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -243,6 +297,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/method.o"
+	@echo "... src/method.i"
+	@echo "... src/method.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"
@@ -252,6 +309,9 @@ help:
 	@echo "... src/stru.o"
 	@echo "... src/stru.i"
 	@echo "... src/stru.s"
+	@echo "... src/text.o"
+	@echo "... src/text.i"
+	@echo "... src/text.s"
 .PHONY : help
 
 

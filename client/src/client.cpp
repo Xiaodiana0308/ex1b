@@ -52,19 +52,20 @@ int client(class input_client in_clie)
                 text_out.ack=0;
                 text_out.seq=0;
                 text_out.max=0;
-                text_out.lock=0;
                 memcpy(&text_out.name,in_clie.name,sizeof(in_clie.name));
                 memcpy(&text_out.password,in_clie.password,sizeof(in_clie.password));
+                memset(&in_clie,'\0',sizeof(in_clie));//及时清空
+
                 break;
             }
             case 2:{//登录模式
                 printf("02模式\n");
                 man_02(&in_clie);//用户登录
+
                 text_out.beg=in_clie.beg;
                 text_out.ack=0;
                 text_out.seq=0;
                 text_out.max=0;
-                text_out.lock=0;
                 memcpy(&text_out.name,in_clie.name,sizeof(in_clie.name));
                 memcpy(&text_out.password,in_clie.password,sizeof(in_clie.password));
                 break;
@@ -75,20 +76,49 @@ int client(class input_client in_clie)
                     continue;//跳到下一轮
                 }
                 printf("04模式\n");
+                man_03(&in_clie);
 
+                if((in_clie.beg_list!=1)&&(in_clie.beg_list!=3)){//既不是获得目录，也不是返回上一级目录
+                    man_030(&text_out);
+                }
+                text_out.beg=in_clie.beg;
+                text_out.ack=0;
+                text_out.seq=0;
+                text_out.max=0;
+                text_out.beg_list=in_clie.beg_list;
                 break;
 
             }
             case 5:{//下载模式
+                if(in_clie.permit!=1){
+                    printf("请登录\n");
+                    continue;//跳到下一轮
+                }
                 break;
             }
             case 6:{//上传模式
+                if(in_clie.permit!=1){
+                    printf("请登录\n");
+                    continue;//跳到下一轮
+                }
                 break;
             }
             case 3:{
                 printf("03模式\n");//关闭连接
+                text_out.beg=in_clie.beg;
+                if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){
+                    printf("iret=%d\n",iret);
+                    perror("send");
+                    close(sockfd);
+                    return -1;
+                }
                 close(sockfd);
                 return 0;
+                break;
+            }
+            default:{
+                printf("请重新输入指令\n");
+                break;
             }
         }
         //数据包发送
@@ -118,11 +148,50 @@ int client(class input_client in_clie)
             }
             case 12:{//登录成功响应
                 printf("登录成功\n");
+                printf("当前所在目录：%s\n",text_get.text);
                 in_clie.permit=1;//权限仅在此赋予
                 break;
             }
             case 14:{//远程目录成功响应
-                break;
+                switch (text_get.beg_list)
+                {
+                    case 1:{//成功获得目录
+                        if(strlen(text_get.text)!=0){
+                            char *ft;//文件名or类型
+                            char *filen;
+                            int typen;
+                            ft=strtok(text_get.text," ");
+                            int i=0;
+                            while(ft)
+                            {
+                                filen=ft;
+                                ft=strtok(NULL," ");
+                                typen=atoi(ft);
+                                printf("文件名：%s，文件类型：%d\n",filen,typen);
+                                ft=strtok(NULL," ");
+                                i++;
+                            }
+                        }
+                        else printf("当前目录为空\n");
+                        break;
+                    }
+                    case 2:{//成功进入目录
+                        printf("成功进入目录\n");
+                        break;
+                    }
+                    case 3:{//成功返回上一目录
+                        printf("成功返回上一目录\n");
+                        break;
+                    }
+                    case 4:{//成功新建文件夹
+                        printf("成功新建文件夹\n");
+                        break;
+                    }
+                    case 5:{//成功删除文件夹
+                        printf("成功删除文件夹\n");
+                        break;
+                    }
+                }
             }
             case 15:{//下载文件完毕响应
                 break;
@@ -134,6 +203,10 @@ int client(class input_client in_clie)
                 break;
             }
             case 26:{//上传文件响应
+                break;
+            }
+            default:{
+                printf("请重新输入指令\n");
                 break;
             }
         }

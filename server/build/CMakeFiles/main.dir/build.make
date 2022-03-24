@@ -70,9 +70,22 @@ CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/server/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
+CMakeFiles/main.dir/src/method.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/method.cpp.o: ../src/method.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/method.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/method.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp
+
+CMakeFiles/main.dir/src/method.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/method.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp > CMakeFiles/main.dir/src/method.cpp.i
+
+CMakeFiles/main.dir/src/method.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/method.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp -o CMakeFiles/main.dir/src/method.cpp.s
+
 CMakeFiles/main.dir/src/server.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/server.cpp.o: ../src/server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/server.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/server.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/server.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/server/src/server.cpp
 
 CMakeFiles/main.dir/src/server.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/main.dir/src/server.cpp.s: cmake_force
 
 CMakeFiles/main.dir/src/sett.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/sett.cpp.o: ../src/sett.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/sett.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/sett.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/sett.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/server/src/sett.cpp
 
 CMakeFiles/main.dir/src/sett.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/main.dir/src/sett.cpp.s: cmake_force
 
 CMakeFiles/main.dir/src/stru.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/stru.cpp.o: ../src/stru.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/stru.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/stru.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/stru.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/server/src/stru.cpp
 
 CMakeFiles/main.dir/src/stru.cpp.i: cmake_force
@@ -109,23 +122,40 @@ CMakeFiles/main.dir/src/stru.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/stru.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/server/src/stru.cpp -o CMakeFiles/main.dir/src/stru.cpp.s
 
+CMakeFiles/main.dir/src/text.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/text.cpp.o: ../src/text.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/src/text.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/text.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/server/src/text.cpp
+
+CMakeFiles/main.dir/src/text.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/text.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/server/src/text.cpp > CMakeFiles/main.dir/src/text.cpp.i
+
+CMakeFiles/main.dir/src/text.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/text.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/server/src/text.cpp -o CMakeFiles/main.dir/src/text.cpp.s
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/main.cpp.o" \
+"CMakeFiles/main.dir/src/method.cpp.o" \
 "CMakeFiles/main.dir/src/server.cpp.o" \
 "CMakeFiles/main.dir/src/sett.cpp.o" \
-"CMakeFiles/main.dir/src/stru.cpp.o"
+"CMakeFiles/main.dir/src/stru.cpp.o" \
+"CMakeFiles/main.dir/src/text.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/main.cpp.o
+main: CMakeFiles/main.dir/src/method.cpp.o
 main: CMakeFiles/main.dir/src/server.cpp.o
 main: CMakeFiles/main.dir/src/sett.cpp.o
 main: CMakeFiles/main.dir/src/stru.cpp.o
+main: CMakeFiles/main.dir/src/text.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

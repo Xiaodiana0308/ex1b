@@ -2,7 +2,7 @@
 
 int man(class input_client *clie)
 {
-    const char ip[20]="10.203.174.170";
+    const char ip[20]="10.203.180.225";
     int port=5005;
     memcpy(&(*clie).ip_1,ip,strlen(ip));
     (*clie).port_1=port;
@@ -21,7 +21,7 @@ int man0(class input_client *clie)
 
 int man_01(class input_client *clie)
 {
-    printf("注册模式");
+    printf("注册模式\n");
     char name[15];
     char password[15];
     printf("请输入账号：\n");
@@ -37,7 +37,7 @@ int man_01(class input_client *clie)
 
 int man_02(class input_client *clie)
 {
-    printf("登录模式");
+    printf("登录模式\n");
     char name[15];
     char password[15];
     printf("请输入账号：\n");
@@ -48,5 +48,24 @@ int man_02(class input_client *clie)
     scanf("%s",password,15);
     memcpy(&(*clie).name,name,strlen(name));
     mempcpy(&(*clie).password,password,strlen(password));
+    return 0;
+}
+
+int man_03(class input_client *clie)
+{
+    printf("目录模式\n");
+    int a;
+    printf("请输入目录操作：\n");
+    fflush(stdin);
+    scanf("%d",&a,1);
+    (*clie).beg_list=a;
+    return 0;
+}
+
+int man_030(class packet *clie_text)
+{
+    printf("请输入文件名：\n");
+    fflush(stdin);
+    scanf("%s",&(*clie_text).text);
     return 0;
 }
