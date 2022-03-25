@@ -13,6 +13,7 @@ CMakeFiles/main.dir/src/method.cpp.o: ../src/method.cpp
 
 CMakeFiles/main.dir/src/server.cpp.o: ../inc/Method.h
 CMakeFiles/main.dir/src/server.cpp.o: ../inc/Server.h
+CMakeFiles/main.dir/src/server.cpp.o: ../inc/Sett.h
 CMakeFiles/main.dir/src/server.cpp.o: ../inc/Stru.h
 CMakeFiles/main.dir/src/server.cpp.o: ../src/server.cpp
 

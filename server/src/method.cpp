@@ -31,16 +31,14 @@ int list_01(class get_client *save_c,struct filename *fn)//获取当前目录下
     char *spec1=".";
     char *spec2="..";
     dir=opendir((*save_c).filename);
-    printf("path=%s\n",(*save_c).filename);
     while ((ptr=readdir(dir))!=NULL)//如果存在文件就一直读取
     {
         if((strcmp(ptr->d_name,spec1)!=0)&&(strcmp(ptr->d_name,spec2)!=0)){
             memcpy(&(*fn).filen[i],ptr->d_name,sizeof(ptr->d_name));
             (*fn).typen[i]=ptr->d_type;//存入目录结构体
-            printf("文件=%s，类型=%d\n",ptr->d_name,ptr->d_type);
             i++;
         }
-        if(i>=50){
+        if(i>=50){//50文件最多
             break;
         }
     }
@@ -59,10 +57,9 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
     int i=0;
     while(fn.typen[i]!=0)
     {
-        printf("name1=%s,name2=%s\n",fn.filen[i],path_in);
         if(strcmp(fn.filen[i],path_in)==0){
             //进入目录
-            char *pathname;
+            char pathname[500]={0};
             sprintf(pathname,"%s/%s",(*save_c).filename,path_in);
             memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
             memcpy(&(*save_c).filename,pathname,sizeof(pathname));
@@ -77,14 +74,14 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
 int list_03(class get_client *save_c)//返回上一目录
 {
     //判断是否可以返回上级目录
-    char *rootpath;//根本目录
+    char rootpath[500]={0};//根本目录
     const char *datapath="/home/wxq/work/wangluoanquan/ex1b/serverdata";//此为服务端存储根目录
     sprintf(rootpath,"%s/%s",datapath,(*save_c).name);
     if(strcmp(rootpath,(*save_c).filename)==0){
         return -1;//错误：无法访问上一级目录
     }
     //可以返回
-    char newpath[50];//返回的目录
+    char newpath[500]={0};//返回的目录
     int j=0;
     for(int i=49;i>=0;i--)//从后往前循环字符串
     {
@@ -114,7 +111,7 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
         }
     }
     //不存在，创建文件夹
-    char newpath[50];//不改变当前所在路径
+    char newpath[500]={0};//不改变当前所在路径
     sprintf(newpath,"%s/%s",(*save_c).filename,path_create);//不允许给字符串指针赋值
     int mkdirretval;
     umask(0);
@@ -129,7 +126,22 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
 int list_05(class get_client *save_c,char *path_dele)//删除目录
 {
     //目录是否存在
-    
-    
-    return 0;
+    struct filename fn;
+    list_01(&(*save_c),&fn);
+    for(int i=0;i<50;i++)
+    {
+        if(strcmp(fn.filen[i],path_dele)==0){
+            char delpath[500]={0};//不改变当前所在路径
+            char order_cd[3]="cd";
+            char order_del[7]="rm -rf";
+            sprintf(delpath,"%s %s & %s %s",order_cd,(*save_c).filename,order_del,path_dele);//命令：进入并删除文件
+            int deleretval;
+            if((deleretval=system(delpath))<0){
+                perror("system");
+                return -1;
+            }
+            return 0;
+        }
+    }
+    return -1;//错误：不存在文件夹
 }

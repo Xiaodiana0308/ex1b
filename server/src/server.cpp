@@ -1,6 +1,6 @@
 #include"./../inc/Server.h"
 
-int server(class get_server get_serv,struct name_password *npd)
+int server(class get_server get_serv,struct name_password *npd,int iname)
 {
     //创建服务端
     int listenfd;
@@ -48,7 +48,6 @@ int server(class get_server get_serv,struct name_password *npd)
     class get_client save_c;//登录成功后存储用户信息
     memset(&save_c,'\0',sizeof(save_c));
     int iret;//接收、发送总数据大小
-    int iname=0;//注册次序
     int break_two;//跳出两个循环用
     while(get_text.beg!=3)//否则一直连接
     {
@@ -138,7 +137,7 @@ int server(class get_server get_serv,struct name_password *npd)
                 printf("收到注销请求\n");
                 close(listenfd);
                 close(clientfd);
-                return 0;
+                return iname;
                 break;
             }
             case 4:{//目录操作模式
@@ -192,9 +191,9 @@ int server(class get_server get_serv,struct name_password *npd)
                         break;
                     }
                     case 4:{//新建文件夹
-                    int list_4;
-                        if((list_4=list_04(&save_c,get_text.text))!=0){//目录不存在
-                            const char *wrong="Directory_does_not_exist";//目录不存在
+                        int list_4;
+                        if((list_4=list_04(&save_c,get_text.text))!=0){//目录已经存在
+                            const char *wrong="Directory_already_exists";//目录已经存在
                             send_text.beg=10;
                             memcpy(&send_text.text,wrong,strlen(wrong));
                             break;
@@ -202,9 +201,17 @@ int server(class get_server get_serv,struct name_password *npd)
                         send_text.beg=14;
                         send_text.beg_list=4;
                         break;
-                        break;
                     }
-                    case 5:{
+                    case 5:{//删除文件夹或目录
+                        int list_5;
+                        if((list_5=list_05(&save_c,get_text.text))!=0){//要删除的目录不存在
+                            const char *wrong="The_directory_to_delete_does_not_exist";//目录已经存在
+                            send_text.beg=10;
+                            memcpy(&send_text.text,wrong,strlen(wrong));
+                            break;
+                        }
+                        send_text.beg=14;
+                        send_text.beg_list=5;
                         break;
                     }
                 }
@@ -239,5 +246,5 @@ int server(class get_server get_serv,struct name_password *npd)
     //关闭socket
     close(listenfd);
     close(clientfd);
-    return 0;
+    return iname;
 }

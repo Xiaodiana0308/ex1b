@@ -59,6 +59,10 @@ int client(class input_client in_clie)
                 break;
             }
             case 2:{//登录模式
+            if(in_clie.permit==1){
+                printf("已经登录，请退出后重新登录\n");
+                continue;
+            }
                 printf("02模式\n");
                 man_02(&in_clie);//用户登录
 

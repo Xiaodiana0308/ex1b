@@ -14,6 +14,7 @@ CMakeFiles/main.dir/src/method.cpp.o
 CMakeFiles/main.dir/src/server.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
+ /home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/server/src/server.cpp
 CMakeFiles/main.dir/src/sett.cpp.o

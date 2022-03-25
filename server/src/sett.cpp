@@ -8,3 +8,11 @@ int sett(class get_server *ge_ser)
     (*ge_ser).port_1=port;
     return 0;
 }
+
+int living_sett(int living)
+{
+    printf("是否关闭？(1是，0否)\n");
+    fflush(stdin);
+    scanf("%d",&living);
+    return living;
+}

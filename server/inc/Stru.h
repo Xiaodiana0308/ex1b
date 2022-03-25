@@ -13,7 +13,7 @@ class get_server{
 class get_client{//存储客户端通信类
     public:
         // short beg;//请求类型报头
-        char filename[50];//当前所在目录
+        char filename[500];//当前所在目录,目录大小统一为500
         char name[15];//用户名
         char password[15];//用户密码
 };

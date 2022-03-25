@@ -12,9 +12,10 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <assert.h>
-#include"./Stru.h"
-#include"./Method.h"
+#include"Stru.h"
+#include"Sett.h"
+#include"Method.h"
 
-int server(class get_server get_serv,struct name_password *npd);//通信函数
+int server(class get_server get_serv,struct name_password *npd,int iname);//通信函数
 
 #endif

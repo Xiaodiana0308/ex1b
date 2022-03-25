@@ -9,4 +9,6 @@
 */
 int sett(class get_server *ge_ser);
 
+int living_sett(int living);//服务端是否彻底关闭函数
+
 #endif

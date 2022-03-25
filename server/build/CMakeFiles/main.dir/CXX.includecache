@@ -9,6 +9,8 @@
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
 iostream
 -
+stdlib.h
+-
 string.h
 -
 sys/types.h
