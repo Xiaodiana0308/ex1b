@@ -193,7 +193,7 @@ int server(class get_server get_serv,struct name_password *npd)
                     }
                     case 4:{//新建文件夹
                     int list_4;
-                        if((list_4=list_04(&save_c,get_text.text))!=0){//无法进入
+                        if((list_4=list_04(&save_c,get_text.text))!=0){//目录不存在
                             const char *wrong="Directory_does_not_exist";//目录不存在
                             send_text.beg=10;
                             memcpy(&send_text.text,wrong,strlen(wrong));

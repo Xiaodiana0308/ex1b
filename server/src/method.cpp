@@ -26,10 +26,12 @@ int list_01(class get_client *save_c,struct filename *fn)//获取当前目录下
 {
     DIR *dir;
     struct dirent *ptr;
+    memset(&(*fn),'\0',sizeof(*fn));
     int i=0;
     char *spec1=".";
     char *spec2="..";
     dir=opendir((*save_c).filename);
+    printf("path=%s\n",(*save_c).filename);
     while ((ptr=readdir(dir))!=NULL)//如果存在文件就一直读取
     {
         if((strcmp(ptr->d_name,spec1)!=0)&&(strcmp(ptr->d_name,spec2)!=0)){
@@ -51,9 +53,13 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
     //判断目录是否存在
     struct filename fn;
     list_01(&(*save_c),&fn);
-    for(int i=0;i<50;i++)
+    if(fn.typen[0]==0){
+        return -1;//文件夹为空，不存在目录
+    }
+    int i=0;
+    while(fn.typen[i]!=0)
     {
-        printf("name1=%s,ame2=%s\n",fn.filen[i],path_in);
+        printf("name1=%s,name2=%s\n",fn.filen[i],path_in);
         if(strcmp(fn.filen[i],path_in)==0){
             //进入目录
             char *pathname;
@@ -62,6 +68,7 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
             memcpy(&(*save_c).filename,pathname,sizeof(pathname));
             return 0;
         }
+        i++;
     }
     return -1;//错误：不存在目录
     
@@ -107,13 +114,15 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
         }
     }
     //不存在，创建文件夹
-    sprintf((*save_c).filename,"%s/%s",(*save_c).filename,path_create);
+    char newpath[50];//不改变当前所在路径
+    sprintf(newpath,"%s/%s",(*save_c).filename,path_create);//不允许给字符串指针赋值
     int mkdirretval;
     umask(0);
-    if((mkdirretval=mkdir((*save_c).filename,S_IRWXU))!=0){
+    if((mkdirretval=mkdir(newpath,S_IRWXU))!=0){
         perror("mkdir");
         return -1;//错误：文件夹已经存在
     }
+    printf("当前目录=%s\n",(*save_c).filename);
     return 0;
 }
 

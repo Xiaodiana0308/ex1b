@@ -2,7 +2,7 @@
 
 int man(class input_client *clie)
 {
-    const char ip[20]="10.203.180.225";
+    const char ip[20]="10.202.54.65";
     int port=5005;
     memcpy(&(*clie).ip_1,ip,strlen(ip));
     (*clie).port_1=port;

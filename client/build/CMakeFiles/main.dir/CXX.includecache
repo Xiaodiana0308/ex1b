@@ -6,34 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/wxq/work/wangluoanquan/ex1b/client/inc/Client.h
-iostream
--
-stdio.h
--
-string.h
--
-unistd.h
--
-stdlib.h
--
-netdb.h
--
-sys/types.h
--
-sys/socket.h
--
-arpa/inet.h
--
-errno.h
--
-assert.h
--
-Stru.h
-/home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
-Man.h
-/home/wxq/work/wangluoanquan/ex1b/client/inc/Man.h
-
 /home/wxq/work/wangluoanquan/ex1b/client/inc/Man.h
 iostream
 -
@@ -48,7 +20,7 @@ iostream
 string
 -
 
-/home/wxq/work/wangluoanquan/ex1b/client/src/client.cpp
-./../inc/Client.h
-/home/wxq/work/wangluoanquan/ex1b/client/inc/Client.h
+/home/wxq/work/wangluoanquan/ex1b/client/src/man.cpp
+./../inc/Man.h
+/home/wxq/work/wangluoanquan/ex1b/client/inc/Man.h
 
