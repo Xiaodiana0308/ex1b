@@ -141,6 +141,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 break;
             }
             case 4:{//目录操作模式
+                printf("当前路径=%s\n",save_c.filename);
                 switch (get_text.beg_list)
                 {
                     case 1:{//获得目录下所有文件名
@@ -148,8 +149,8 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         struct filename fn;
                         memset(&fn,'\0',sizeof(fn));
                         list_01(&save_c,&fn);
-                        char fn_c1[500]={0};
-                        char fn_c2[500]={0};
+                        char fn_c1[550]={0};
+                        char fn_c2[550]={0};
                         if(fn.typen[0]!=0){//读取到了[注意采用第0个位置的文件类型判断]
                             int i=0;
                             while(fn.typen[i]!=0)
@@ -217,10 +218,74 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 }
                 break;
             }
-            case 5:{//下载模式
+            case 5:{//客户端下载模式
+
                 break;
             }
-            case 6:{//上传模式
+            case 6:{//客户端上传模式
+                printf("客户端上传模式:\n");
+                char filepath[500]={0};
+                int ack=0;//确认接收数据包用
+                int max=get_text.max;//写入文件大小
+                sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
+                printf("文件大小=%d，文件名=%s\n",get_text.max,get_text.text);
+                FILE *fp;
+                if((fp=fopen(filepath,"w"))==NULL){
+                    printf("服务端不能接收该文件\n");
+                    break;
+                }
+                fseek(fp, 0, SEEK_SET);
+                const char *inform0="File_upload_start";//文件传输开始
+                //发送包封装
+                send_text.beg=26;
+                send_text.ack=get_text.seq;
+                send_text.seq=0;
+                send_text.max=0;
+                memcpy(&send_text.text,inform0,strlen(inform0));
+                while(1)//发送-接收循环
+                {
+                    //发送数据包
+                    if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
+                        printf("iret=%d\n",iret);
+                        perror("send");
+                        close(listenfd);
+                        close(clientfd);
+                        return -1;
+                    }
+                    memset(&send_text,'\0',sizeof(send_text));
+                    memset(&get_text,'\0',sizeof(get_text));
+                    //接收数据包
+                    if((iret=recv(clientfd,&get_text,sizeof(get_text),0))<=0){
+                        printf("iret=%d\n",iret);
+                        perror("recv");
+                        close(listenfd);
+                        close(clientfd);
+                        return -1;
+                    }
+                    //写入文件
+                    int i=0;
+                    fseek(fp,ack+1,SEEK_SET);//文件指针定位
+                    while(i<get_text.seq)//读到seq范围
+                    {
+                        putc(get_text.text[i],fp);
+                        i++;
+                    }
+                    const char *inform="Percentage_of_files_transferred:";//返回文件存储进度信息
+                    float fini=((float)ack/(float)max)*100;
+                    ack=ack+get_text.seq;
+                    //发送包打包
+                    sprintf(send_text.text,"%s %f %",inform,fini);
+                    send_text.ack=ack;
+                    send_text.seq=0;
+                    send_text.max=0;
+                    if(get_text.beg==16){
+                        printf("上传文件完成");
+                        send_text.beg=16;
+                        fclose(fp);//关闭文件
+                        break;//最后一次传输回复交由统一发送
+                    }
+                    else send_text.beg=26;
+                }
                 break;
             }
             case 25:{//继续下载文件
@@ -239,8 +304,6 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             return -1;
         }
     }
-    
-    std::cout<<"Receive data:"<<get_text.beg<<std::endl;
 
     
     //关闭socket

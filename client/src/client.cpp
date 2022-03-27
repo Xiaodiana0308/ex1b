@@ -105,6 +105,90 @@ int client(class input_client in_clie)
                     printf("请登录\n");
                     continue;//跳到下一轮
                 }
+                FILE *fp;//文件指针
+                man_06(&in_clie);//读取文件名和全路径
+                if((fp=fopen(in_clie.send_filepath,"r"))==NULL){
+                    printf("无法找到文件\n");
+                    break;//跳出循环
+                }
+                //成功打开文件
+                fseek(fp,0,SEEK_END);//定位到文件末尾
+
+                //第一个发送包封装
+                text_out.beg=in_clie.beg;
+                text_out.ack=0;
+                text_out.seq=0;
+                text_out.max=ftell(fp);//函数用于返回文件大小
+                memcpy(&text_out.text,in_clie.send_filename,strlen(in_clie.send_filename));
+                fseek(fp, 0, SEEK_SET);//文件指针指向文件头部
+
+                if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){//首次发送
+                    printf("iret=%d\n",iret);
+                    perror("send");
+                    close(sockfd);
+                    return -1;
+                }
+                while(1)//接收-发送循环
+                {
+                    memset(&text_out,'\0',sizeof(struct packet));
+                    memset(&text_get,'\0',sizeof(struct packet));//初始化数据包
+                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){//接收返回确认
+                        printf("iret=%d\n",iret);
+                        perror("recv");
+                        close(sockfd);
+                        return -1;
+                    }
+                    //接收包解析
+                    printf("%s\n",text_get.text);
+                    if(text_get.beg==26){
+                        fseek(fp,text_get.ack+1,SEEK_SET);//定位文件指针，从确认位置+1开始
+                        //确保每次读取范围
+                        int i=0;
+                        int c;//临时存储字符串
+                        c=getc(fp);//先读一次
+                        while((!feof(fp))&&(i<998))
+                        {
+                            text_out.text[i]=c;//存入发送包
+                            c=getc(fp);//读取文件字符并后移文件指针
+                            i++;
+                        }
+                        // int i=0;
+                        // while((!feof(fp))&&(i<1000))
+                        // {
+                        //     text_out.text[i]=getc(fp);//存入发送包,读取文件字符并后移文件指针
+                        //     i++;
+                        // }
+                        if(feof(fp)){//上传完成
+                            fclose(fp);
+                            text_out.text[i]='\0';
+                            text_out.text[i+1]='\0';
+                            text_out.beg=16;//完成报头
+                            text_out.seq=strlen(text_out.text);
+                            text_out.ack=0;
+                            text_out.max=0;
+                            break;//最后一次发送交由统一发送方发送
+                        }
+                        else {//上传继续
+                            text_out.text[i]=c;
+                            text_out.text[i+1]='\0';
+                            text_out.beg=26;//继续报头
+                            text_out.seq=strlen(text_out.text);
+                            text_out.ack=0;
+                            text_out.max=0;
+                            //发送
+                            if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){
+                                printf("iret=%d\n",iret);
+                                perror("send");
+                                close(sockfd);
+                                return -1;
+                            }
+                        }
+                    }
+                    else {//正常情况下不会收到其他请求的报文
+                        printf("数据 发送异常，中断\n");
+                        break;
+                    }   
+                }
                 break;
             }
             case 3:{
@@ -198,15 +282,10 @@ int client(class input_client in_clie)
                 }
             }
             case 15:{//下载文件完毕响应
+                printf("成功发送文件\n");
                 break;
             }
             case 16:{//上传文件完毕响应
-                break;
-            }
-            case 25:{//下载文件响应
-                break;
-            }
-            case 26:{//上传文件响应
                 break;
             }
             default:{

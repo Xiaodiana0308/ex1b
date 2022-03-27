@@ -2,7 +2,6 @@
 #define Client
 
 #include <iostream>
-#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -12,6 +11,8 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <assert.h>
+#include <fstream>
+
 #include"Stru.h"
 #include"Man.h"
 

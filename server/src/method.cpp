@@ -28,8 +28,8 @@ int list_01(class get_client *save_c,struct filename *fn)//获取当前目录下
     struct dirent *ptr;
     memset(&(*fn),'\0',sizeof(*fn));
     int i=0;
-    char *spec1=".";
-    char *spec2="..";
+    char spec1[2]=".";
+    char spec2[3]="..";
     dir=opendir((*save_c).filename);
     while ((ptr=readdir(dir))!=NULL)//如果存在文件就一直读取
     {
@@ -59,7 +59,7 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
     {
         if(strcmp(fn.filen[i],path_in)==0){
             //进入目录
-            char pathname[500]={0};
+            char pathname[550]={0};
             sprintf(pathname,"%s/%s",(*save_c).filename,path_in);
             memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
             memcpy(&(*save_c).filename,pathname,sizeof(pathname));
@@ -93,7 +93,7 @@ int list_03(class get_client *save_c)//返回上一目录
         }
 
     }
-    printf("%s\n",newpath);
+    // printf("%s\n",newpath);
     memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
     memcpy(&(*save_c).filename,newpath,sizeof(newpath));
     return 0;
@@ -111,7 +111,7 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
         }
     }
     //不存在，创建文件夹
-    char newpath[500]={0};//不改变当前所在路径
+    char newpath[550]={0};//不改变当前所在路径
     sprintf(newpath,"%s/%s",(*save_c).filename,path_create);//不允许给字符串指针赋值
     int mkdirretval;
     umask(0);
@@ -119,7 +119,7 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
         perror("mkdir");
         return -1;//错误：文件夹已经存在
     }
-    printf("当前目录=%s\n",(*save_c).filename);
+    // printf("当前目录=%s\n",(*save_c).filename);
     return 0;
 }
 
@@ -131,12 +131,13 @@ int list_05(class get_client *save_c,char *path_dele)//删除目录
     for(int i=0;i<50;i++)
     {
         if(strcmp(fn.filen[i],path_dele)==0){
-            char delpath[500]={0};//不改变当前所在路径
+            char delpath[550]={0};//不改变当前所在路径
             char order_cd[3]="cd";
             char order_del[7]="rm -rf";
-            sprintf(delpath,"%s %s & %s %s",order_cd,(*save_c).filename,order_del,path_dele);//命令：进入并删除文件
+            sprintf(delpath,"%s %s && %s %s",order_cd,(*save_c).filename,order_del,path_dele);//命令：进入并删除文件
+            printf("delpath=%s\n",delpath);
             int deleretval;
-            if((deleretval=system(delpath))<0){
+            if((deleretval=system(delpath))!=0){
                 perror("system");
                 return -1;
             }

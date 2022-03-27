@@ -16,6 +16,7 @@ int main()
     while(living==0)
     {
         if((iname=server(get_serv,&npd,iname))!=-1){
+            iname++;
             living=living_sett(living);
             sleep(20);
         }
