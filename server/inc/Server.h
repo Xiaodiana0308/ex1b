@@ -12,9 +12,12 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <assert.h>
+#include <fstream>
 #include"Stru.h"
 #include"Sett.h"
 #include"Method.h"
+
+using namespace std;
 
 int server(class get_server get_serv,struct name_password *npd,int iname);//通信函数
 

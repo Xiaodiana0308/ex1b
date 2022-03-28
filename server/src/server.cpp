@@ -228,13 +228,15 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 int ack=0;//确认接收数据包用
                 int max=get_text.max;//写入文件大小
                 sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
-                printf("文件大小=%d，文件名=%s\n",get_text.max,get_text.text);
-                FILE *fp;
-                if((fp=fopen(filepath,"w"))==NULL){
+                printf("文件大小=%d字节，文件名=%s\n",get_text.max,get_text.text);
+                
+                ofstream writefile;
+                writefile.open(filepath,ios::binary);
+                if(!writefile.is_open()){
                     printf("服务端不能接收该文件\n");
-                    break;
+                    break;//跳出
                 }
-                fseek(fp, 0, SEEK_SET);
+                writefile.seekp(0,ios::beg);//定位到文件开头
                 const char *inform0="File_upload_start";//文件传输开始
                 //发送包封装
                 send_text.beg=26;
@@ -264,15 +266,16 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                     }
                     //写入文件
                     int i=0;
-                    fseek(fp,ack+1,SEEK_SET);//文件指针定位
-                    while(i<get_text.seq)//读到seq范围
+                    writefile.seekp(ack,ios::beg);//文件指针定位，上一个ack
+                    while(i<get_text.seq)
                     {
-                        putc(get_text.text[i],fp);
+                        writefile.write(&get_text.text[i],sizeof(char));;
                         i++;
                     }
                     const char *inform="Percentage_of_files_transferred:";//返回文件存储进度信息
                     float fini=((float)ack/(float)max)*100;
                     ack=ack+get_text.seq;
+                    printf("接收数据大小=%d\n,累计=%d",get_text.seq,ack);
                     //发送包打包
                     sprintf(send_text.text,"%s %f %",inform,fini);
                     send_text.ack=ack;
@@ -281,7 +284,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                     if(get_text.beg==16){
                         printf("上传文件完成");
                         send_text.beg=16;
-                        fclose(fp);//关闭文件
+                        writefile.close();
                         break;//最后一次传输回复交由统一发送
                     }
                     else send_text.beg=26;

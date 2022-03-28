@@ -105,22 +105,24 @@ int client(class input_client in_clie)
                     printf("请登录\n");
                     continue;//跳到下一轮
                 }
-                FILE *fp;//文件指针
                 man_06(&in_clie);//读取文件名和全路径
-                if((fp=fopen(in_clie.send_filepath,"r"))==NULL){
+                ifstream readfile;//文件指针
+                readfile.open(in_clie.send_filepath,ios::binary);//二进制形式打开
+                if(!readfile.is_open()){
                     printf("无法找到文件\n");
-                    break;//跳出循环
+                    break;//跳出
                 }
-                //成功打开文件
-                fseek(fp,0,SEEK_END);//定位到文件末尾
 
+                //成功打开文件
+                readfile.seekg(0,ios::end);//定位到文件末尾
                 //第一个发送包封装
                 text_out.beg=in_clie.beg;
                 text_out.ack=0;
                 text_out.seq=0;
-                text_out.max=ftell(fp);//函数用于返回文件大小
+                text_out.max=readfile.tellg();//函数用于返回文件大小
                 memcpy(&text_out.text,in_clie.send_filename,strlen(in_clie.send_filename));
-                fseek(fp, 0, SEEK_SET);//文件指针指向文件头部
+
+                readfile.seekg(0,ios::beg);//定位到文件开头
 
                 if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){//首次发送
                     printf("iret=%d\n",iret);
@@ -141,41 +143,30 @@ int client(class input_client in_clie)
                     //接收包解析
                     printf("%s\n",text_get.text);
                     if(text_get.beg==26){
-                        fseek(fp,text_get.ack+1,SEEK_SET);//定位文件指针，从确认位置+1开始
-                        //确保每次读取范围
+                        readfile.seekg(0,ios::cur);//定位文件指针，从确认位置+1开始
                         int i=0;
-                        int c;//临时存储字符串
-                        c=getc(fp);//先读一次
-                        while((!feof(fp))&&(i<998))
+                        while((!readfile.eof())&&(i<999))
                         {
-                            text_out.text[i]=c;//存入发送包
-                            c=getc(fp);//读取文件字符并后移文件指针
+                            readfile.read(&text_out.text[i],sizeof(char));//每次只读一个
                             i++;
+                            
                         }
-                        // int i=0;
-                        // while((!feof(fp))&&(i<1000))
-                        // {
-                        //     text_out.text[i]=getc(fp);//存入发送包,读取文件字符并后移文件指针
-                        //     i++;
-                        // }
-                        if(feof(fp)){//上传完成
-                            fclose(fp);
-                            text_out.text[i]='\0';
-                            text_out.text[i+1]='\0';
+                        // printf("i=%d\n",i);
+                        if(readfile.eof()){//上传完成
+                            readfile.close();
+                            text_out.text[i-1]='\0';//由于eof会多判断一位，因此需要将上一位置0
                             text_out.beg=16;//完成报头
-                            text_out.seq=strlen(text_out.text);
+                            text_out.seq=i;
                             text_out.ack=0;
                             text_out.max=0;
-                            break;//最后一次发送交由统一发送方发送
+                            break;
                         }
                         else {//上传继续
-                            text_out.text[i]=c;
-                            text_out.text[i+1]='\0';
                             text_out.beg=26;//继续报头
-                            text_out.seq=strlen(text_out.text);
+                            text_out.seq=sizeof(text_out.text);
                             text_out.ack=0;
                             text_out.max=0;
-                            //发送
+                            //直接发送
                             if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){
                                 printf("iret=%d\n",iret);
                                 perror("send");

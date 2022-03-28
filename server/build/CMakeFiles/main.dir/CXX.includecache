@@ -47,6 +47,8 @@ errno.h
 -
 assert.h
 -
+fstream
+-
 Stru.h
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
 Sett.h
@@ -68,29 +70,7 @@ iostream
 string
 -
 
-/home/wxq/work/wangluoanquan/ex1b/server/main.cpp
-iostream
--
-./inc/Server.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
-./inc/Stru.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
-./inc/Sett.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
-
-/home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp
-./../inc/Method.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
-
 /home/wxq/work/wangluoanquan/ex1b/server/src/server.cpp
 ./../inc/Server.h
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
-
-/home/wxq/work/wangluoanquan/ex1b/server/src/sett.cpp
-./../inc/Sett.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
-
-/home/wxq/work/wangluoanquan/ex1b/server/src/stru.cpp
-./../inc/Stru.h
-/home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
 

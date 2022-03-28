@@ -16,6 +16,8 @@
 #include"Stru.h"
 #include"Man.h"
 
+using namespace std;
+
 int client(class input_client in_clie);//通信函数
 
 #endif
