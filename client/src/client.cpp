@@ -98,6 +98,7 @@ int client(class input_client in_clie)
                     printf("请登录\n");
                     continue;//跳到下一轮
                 }
+
                 break;
             }
             case 6:{//上传模式
@@ -140,6 +141,7 @@ int client(class input_client in_clie)
                         return -1;
                     }
                     //接收包解析
+                    printf("%s\n",text_get.text);
                     if(text_get.beg==26){
                         readfile.seekg(text_get.ack,ios::beg);//定位文件指针，从确认位置开始
                         /*
