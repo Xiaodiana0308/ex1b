@@ -98,7 +98,96 @@ int client(class input_client in_clie)
                     printf("请登录\n");
                     continue;//跳到下一轮
                 }
-
+                man_05(&in_clie);//获得文件名和存放文件所在路径
+                ofstream writefile;//写文件指针
+                //能否存放
+                writefile.open(in_clie.send_filepath,ios::binary);
+                if(!writefile.is_open()){
+                    printf("本地无法下载该文件\n");
+                    break;//跳出
+                }
+                //请求下载包封装
+                text_out.beg=in_clie.beg;
+                text_out.ack=0;
+                text_out.seq=0;
+                text_out.max=0;
+                memcpy(&text_out.text,in_clie.send_filename,strlen(in_clie.send_filename));
+                //发送下载请求包
+                if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){//首次发送
+                    printf("iret=%d\n",iret);
+                    perror("send");
+                    close(sockfd);
+                    writefile.close();
+                    return -1;
+                }
+                if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){//首次接收
+                    printf("iret=%d\n",iret);
+                    perror("recv");
+                    close(sockfd);
+                    writefile.close();
+                    return -1;
+                }
+                //首个接收包解析
+                printf("文件大小为%d字节\n",text_get.max);
+                int man050=man_050();
+                if(man050!=1){//不下载
+                    writefile.close();
+                    break;
+                }
+                int ack=0;//确认总数
+                int max=text_get.max;//文件最大值
+                //确认下载包封装
+                memset(&text_out,'\0',sizeof(struct packet));
+                const char *inform0="File_upload_start";//文件传输开始
+                memcpy(&text_out.text,inform0,sizeof(inform0));
+                text_out.beg=25;
+                text_out.ack=ack;
+                text_out.seq=0;
+                text_out.max=0;
+                while(1)//发送-接收循环
+                {
+                    //发送包
+                    if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){
+                        printf("iret=%d\n",iret);
+                        perror("send");
+                        close(sockfd);
+                        writefile.close();
+                        return -1;
+                    }
+                    memset(&text_get,'\0',sizeof(struct packet));
+                    //接收包
+                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){//首次接收
+                        printf("iret=%d\n",iret);
+                        perror("recv");
+                        close(sockfd);
+                        writefile.close();
+                        return -1;
+                    }
+                    //接收包解析
+                    int i=0;
+                    writefile.seekp(ack,ios::beg);//文件指针定位，上一个ack
+                    while(i<text_get.seq)
+                    {
+                        writefile.write(&text_get.text[i],sizeof(char));;
+                        i++;
+                    }
+                    const char *inform="Percentage_of_files_transferred:";//返回文件存储进度信息
+                    float fini=((float)ack/(float)max)*100;
+                    ack=ack+text_get.seq;//更新接收数据量
+                    memset(&text_out,'\0',sizeof(struct packet));
+                    sprintf(text_out.text,"%s %f %%",inform,fini);
+                    //发送包封装
+                    text_out.ack=ack;
+                    text_out.seq=0;
+                    text_out.max=0;
+                    if(text_get.beg==15){
+                        printf("文件下载完成\n");
+                        text_out.beg=15;
+                        writefile.close();
+                        break;//交由统一发送
+                    }
+                    else text_out.beg=25;
+                }
                 break;
             }
             case 6:{//上传模式
@@ -107,7 +196,7 @@ int client(class input_client in_clie)
                     continue;//跳到下一轮
                 }
                 man_06(&in_clie);//读取文件名和全路径
-                ifstream readfile;//文件指针
+                ifstream readfile;//读文件指针
                 readfile.open(in_clie.send_filepath,ios::binary);//二进制形式打开
                 if(!readfile.is_open()){
                     printf("无法找到文件\n");
@@ -134,14 +223,15 @@ int client(class input_client in_clie)
                 {
                     memset(&text_out,'\0',sizeof(struct packet));
                     memset(&text_get,'\0',sizeof(struct packet));//初始化数据包
-                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){//接收返回确认
+                    //接收返回确认
+                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){
                         printf("iret=%d\n",iret);
                         perror("recv");
                         close(sockfd);
                         return -1;
                     }
                     //接收包解析
-                    printf("%s\n",text_get.text);
+                    printf("%s\n",text_get.text);//输出剩余量信息
                     if(text_get.beg==26){
                         readfile.seekg(text_get.ack,ios::beg);//定位文件指针，从确认位置开始
                         /*
@@ -158,10 +248,9 @@ int client(class input_client in_clie)
                         while((!readfile.eof())&&(i<1000))
                         {
                             readfile.read(&text_out.text[i],sizeof(char));//每次只读一个
-                            i++;
-                            
+                            i++; 
                         }
-                        if(readfile.eof()){//上传完成
+                        if(readfile.eof()){//最后一次，上传完成
                             readfile.close();
                             text_out.text[i-1]='\0';//由于eof会多判断一位，因此需要将上一位置0
                             text_out.beg=16;//完成报头
@@ -185,7 +274,7 @@ int client(class input_client in_clie)
                         }
                     }
                     else {//正常情况下不会收到其他请求的报文
-                        printf("数据发送异常，中断\n");
+                        printf("%s\n",text_get.text);
                         break;
                     }   
                 }
@@ -282,10 +371,11 @@ int client(class input_client in_clie)
                 }
             }
             case 15:{//下载文件完毕响应
-                printf("成功发送文件\n");
+                printf("成功下载文件\n");
                 break;
             }
             case 16:{//上传文件完毕响应
+                printf("成功发送文件\n");
                 break;
             }
             default:{
@@ -293,7 +383,6 @@ int client(class input_client in_clie)
                 break;
             }
         }
-
     }
     close(sockfd);
     return 0; 

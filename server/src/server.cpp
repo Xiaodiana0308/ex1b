@@ -219,7 +219,84 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 break;
             }
             case 5:{//客户端下载模式
+                printf("客户端下载模式:\n");
+                char filepath[500]={0};
+                sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
+                ifstream readfile;//读文件指针
+                readfile.open(filepath,ios::binary);//二进制形式打开
+                if(!readfile.is_open()){
+                    const char *wrong="The_file_cannot_be_downloaded:file_does_not_exist";//无法下载该文件:文件不存在
+                    send_text.beg=10;
+                    memcpy(&send_text.text,wrong,strlen(wrong));
+                    break;//跳出
+                }
+                //成功打开文件
+                readfile.seekg(0,ios::end);//定位到文件末尾
+                //第一个发送包封装
+                send_text.beg=25;
+                send_text.ack=0;
+                send_text.seq=0;
+                send_text.max=readfile.tellg();//函数用于返回文件大小
 
+                readfile.seekg(0,ios::beg);//定位到文件开头
+                //首次发送（包含大小信息）
+                if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
+                    printf("iret=%d\n",iret);
+                    perror("send");
+                    close(listenfd);
+                    close(clientfd);
+                    return -1;
+                }
+                while(1)//接收-发送循环
+                {
+                    memset(&send_text,'\0',sizeof(send_text));
+                    memset(&get_text,'\0',sizeof(get_text));//初始化数据包
+                    //接收返回确认
+                    if((iret=recv(clientfd,&get_text,sizeof(get_text),0))<=0){
+                        printf("iret=%d\n",iret);
+                        perror("recv");
+                        close(listenfd);
+                        close(clientfd);
+                        return -1;
+                    }
+                    //接收包解析
+                    if(get_text.beg==25){
+                        readfile.seekg(get_text.ack,ios::beg);//定位文件指针，从确认位置开始
+                        int i=0;
+                        while((!readfile.eof())&&(i<1000))
+                        {
+                            readfile.read(&send_text.text[i],sizeof(char));//每次只读一个
+                            i++;
+                        }
+                        if(readfile.eof()){//最后一次，上传完成
+                            readfile.close();
+                            send_text.text[i-1]='\0';//由于eof会多判断一位，因此需要将上一位置0
+                            send_text.beg=15;//完成报头
+                            send_text.seq=i;
+                            send_text.ack=0;
+                            send_text.max=0;
+                        }
+                        else {//上传继续
+                            send_text.beg=25;//继续报头
+                            send_text.seq=sizeof(send_text.text);
+                            send_text.ack=0;
+                            send_text.max=0;
+                        }
+                        //发送
+                        if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
+                            printf("iret=%d\n",iret);
+                            perror("send");
+                            close(listenfd);
+                            close(clientfd);
+                            return -1;
+                        }
+                    }
+                    else if(get_text.beg==15){//对方返回确认
+                        memset(&send_text,'\0',sizeof(send_text));
+                        send_text.beg=15;
+                        break;
+                    }
+                }
                 break;
             }
             case 6:{//客户端上传模式
@@ -233,7 +310,9 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 ofstream writefile;
                 writefile.open(filepath,ios::binary);
                 if(!writefile.is_open()){
-                    printf("服务端不能接收该文件\n");
+                    const char *wrong="The_file_cannot_be_uploaded";//无法上传该文件
+                    send_text.beg=10;
+                    memcpy(&send_text.text,wrong,strlen(wrong));
                     break;//跳出
                 }
                 writefile.seekp(0,ios::beg);//定位到文件开头
@@ -252,6 +331,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         perror("send");
                         close(listenfd);
                         close(clientfd);
+                        writefile.close();
                         return -1;
                     }
                     memset(&send_text,'\0',sizeof(send_text));
@@ -262,6 +342,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         perror("recv");
                         close(listenfd);
                         close(clientfd);
+                        writefile.close();
                         return -1;
                     }
                     //写入文件
@@ -307,8 +388,6 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             return -1;
         }
     }
-
-    
     //关闭socket
     close(listenfd);
     close(clientfd);

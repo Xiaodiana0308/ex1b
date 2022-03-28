@@ -70,7 +70,29 @@ int man_030(class packet *clie_text)
     return 0;
 }
 
-int man_06(class input_client *clie)//第一次读取文件
+int man_05(class input_client *clie)//下载文件
+{
+    char path[450]={0};
+    printf("请输入下载文件的存放路径：(带斜杠)\n");
+    fflush(stdin);
+    scanf("%s",path);
+    printf("请输入需要下载的文件名：\n");
+    fflush(stdin);
+    scanf("%s",&(*clie).send_filename);
+    sprintf((*clie).send_filepath,"%s%s",path,(*clie).send_filename);//全路径
+    return 0;
+}
+
+int man_050()//是否接收文件
+{
+    printf("是否接收？(1是，2否)\n");
+    fflush(stdin);
+    int i=0;
+    scanf("%d",&i);
+    return i;
+}
+
+int man_06(class input_client *clie)//读取文件
 {
     char path[450]={0};
     printf("请输入上传文件所在路径：(带斜杠)\n");
@@ -79,6 +101,7 @@ int man_06(class input_client *clie)//第一次读取文件
     printf("请输入上传文件名：\n");
     fflush(stdin);
     scanf("%s",&(*clie).send_filename);
-    sprintf((*clie).send_filepath,"%s%s",path,(*clie).send_filename);
+    sprintf((*clie).send_filepath,"%s%s",path,(*clie).send_filename);//全路径
     return 0;
 }
+
