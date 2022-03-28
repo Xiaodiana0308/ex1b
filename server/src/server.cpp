@@ -275,9 +275,9 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                     const char *inform="Percentage_of_files_transferred:";//返回文件存储进度信息
                     float fini=((float)ack/(float)max)*100;
                     ack=ack+get_text.seq;
-                    printf("接收数据大小=%d\n,累计=%d",get_text.seq,ack);
+                    // printf("接收数据大小=%d\n,累计=%d",get_text.seq,ack);
                     //发送包打包
-                    sprintf(send_text.text,"%s %f %",inform,fini);
+                    sprintf(send_text.text,"%s %f %%",inform,fini);
                     send_text.ack=ack;
                     send_text.seq=0;
                     send_text.max=0;

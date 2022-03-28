@@ -123,7 +123,6 @@ int client(class input_client in_clie)
                 memcpy(&text_out.text,in_clie.send_filename,strlen(in_clie.send_filename));
 
                 readfile.seekg(0,ios::beg);//定位到文件开头
-
                 if((iret=send(sockfd,&text_out,sizeof(struct packet),0))<=0){//首次发送
                     printf("iret=%d\n",iret);
                     perror("send");
@@ -141,17 +140,25 @@ int client(class input_client in_clie)
                         return -1;
                     }
                     //接收包解析
-                    printf("%s\n",text_get.text);
                     if(text_get.beg==26){
-                        readfile.seekg(0,ios::cur);//定位文件指针，从确认位置+1开始
+                        readfile.seekg(text_get.ack,ios::beg);//定位文件指针，从确认位置开始
+                        /*
+                            0~99        -seq=100->  
+                                                        0~99
+                                        <-ack=100-
+                            100~199     
+                                        -seq=100->  
+                                                        100~199
+                                        <-ack=200-  
+                            200-299
+                        */
                         int i=0;
-                        while((!readfile.eof())&&(i<999))
+                        while((!readfile.eof())&&(i<1000))
                         {
                             readfile.read(&text_out.text[i],sizeof(char));//每次只读一个
                             i++;
                             
                         }
-                        // printf("i=%d\n",i);
                         if(readfile.eof()){//上传完成
                             readfile.close();
                             text_out.text[i-1]='\0';//由于eof会多判断一位，因此需要将上一位置0
@@ -176,7 +183,7 @@ int client(class input_client in_clie)
                         }
                     }
                     else {//正常情况下不会收到其他请求的报文
-                        printf("数据 发送异常，中断\n");
+                        printf("数据发送异常，中断\n");
                         break;
                     }   
                 }
