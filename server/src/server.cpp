@@ -223,7 +223,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                 char filepath[500]={0};
                 sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
                 ifstream readfile;//读文件指针
-                readfile.open(filepath,ios::binary);//二进制形式打开
+                readfile.open(filepath,ios::binary | ios::in);//二进制形式打开
                 if(!readfile.is_open()){
                     const char *wrong="The_file_cannot_be_downloaded:file_does_not_exist";//无法下载该文件:文件不存在
                     send_text.beg=10;

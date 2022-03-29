@@ -128,11 +128,15 @@ int client(class input_client in_clie)
                     return -1;
                 }
                 //首个接收包解析
+                if(text_get.beg==10){
+                    printf("%s\n",text_get.text);
+                    continue;
+                }
                 printf("文件大小为%d字节\n",text_get.max);
                 int man050=man_050();
                 if(man050!=1){//不下载
                     writefile.close();
-                    break;
+                    continue;
                 }
                 int ack=0;//确认总数
                 int max=text_get.max;//文件最大值
@@ -156,7 +160,7 @@ int client(class input_client in_clie)
                     }
                     memset(&text_get,'\0',sizeof(struct packet));
                     //接收包
-                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){//首次接收
+                    if((iret=recv(sockfd,&text_get,sizeof(text_get),0))<=0){
                         printf("iret=%d\n",iret);
                         perror("recv");
                         close(sockfd);
@@ -172,8 +176,9 @@ int client(class input_client in_clie)
                         i++;
                     }
                     const char *inform="Percentage_of_files_transferred:";//返回文件存储进度信息
-                    float fini=((float)ack/(float)max)*100;
                     ack=ack+text_get.seq;//更新接收数据量
+                    float fini=((float)ack/(float)max)*100;
+                    printf("剩余%f %%\n",fini);
                     memset(&text_out,'\0',sizeof(struct packet));
                     sprintf(text_out.text,"%s %f %%",inform,fini);
                     //发送包封装
