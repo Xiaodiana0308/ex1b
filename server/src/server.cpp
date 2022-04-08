@@ -142,6 +142,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             }
             case 4:{//目录操作模式
                 printf("当前路径=%s\n",save_c.filename);
+                // printf("name=%s\n",save_c.name);
                 switch (get_text.beg_list)
                 {
                     case 1:{//获得目录下所有文件名
@@ -149,8 +150,8 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         struct filename fn;
                         memset(&fn,'\0',sizeof(fn));
                         list_01(&save_c,&fn);
-                        char fn_c1[550]={0};
-                        char fn_c2[550]={0};
+                        char fn_c1[500]={0};
+                        char fn_c2[500]={0};
                         if(fn.typen[0]!=0){//读取到了[注意采用第0个位置的文件类型判断]
                             int i=0;
                             while(fn.typen[i]!=0)
@@ -158,16 +159,18 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                                 memset(&fn_c2,'\0',sizeof(fn_c2));//清空2
                                 memcpy(&fn_c2,fn_c1,strlen(fn_c1));//存入2
                                 memset(&fn_c1,'\0',sizeof(fn_c1));//清空1
-                                sprintf(fn_c1,"%s%s %d ",fn_c2,fn.filen[i],fn.typen[i]);//给1接上：  文件名,文件类型,
+                                sprintf(fn_c1,"%s%s<%d>  ",fn_c2,fn.filen[i],fn.typen[i]);//给1接上：  文件名<文件类型>,
                                 i++;
                             }
                             memcpy(&send_text.text,fn_c1,sizeof(fn_c1));
+                            // printf("%s\n",send_text.text);
                         }
                         send_text.beg=14;
                         send_text.beg_list=1;
                         break;
                     }
                     case 2:{//进入目录
+                        printf("收到进入目录请求\n");
                         int list_2;
                         if((list_2=list_02(&save_c,get_text.text))!=0){//无法进入
                             const char *wrong="Directory_does_not_exist";//目录不存在
@@ -177,9 +180,11 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         }
                         send_text.beg=14;
                         send_text.beg_list=2;
+                        memcpy(&send_text.text,save_c.filename,sizeof(save_c.filename));
                         break;
                     }
                     case 3:{//返回上一目录
+                        printf("收到返回上一目录请求\n");
                         int list_3;
                         if((list_3=list_03(&save_c))!=0){//无法进入
                             const char *wrong="Unable_to_access_unauthorized_space";//无法访问未授权的空间
@@ -189,9 +194,11 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         }
                         send_text.beg=14;
                         send_text.beg_list=3;
+                        memcpy(&send_text.text,save_c.filename,sizeof(save_c.filename));
                         break;
                     }
                     case 4:{//新建文件夹
+                        printf("收到新建文件夹请求\n");
                         int list_4;
                         if((list_4=list_04(&save_c,get_text.text))!=0){//目录已经存在
                             const char *wrong="Directory_already_exists";//目录已经存在
@@ -201,9 +208,11 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         }
                         send_text.beg=14;
                         send_text.beg_list=4;
+                        memcpy(&send_text.text,save_c.filename,sizeof(save_c.filename));
                         break;
                     }
                     case 5:{//删除文件夹或目录
+                        printf("收到删除文件夹或目录请求\n");
                         int list_5;
                         if((list_5=list_05(&save_c,get_text.text))!=0){//要删除的目录不存在
                             const char *wrong="The_directory_to_delete_does_not_exist";//目录已经存在
@@ -213,6 +222,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         }
                         send_text.beg=14;
                         send_text.beg_list=5;
+                        memcpy(&send_text.text,save_c.filename,sizeof(save_c.filename));
                         break;
                     }
                 }
@@ -380,6 +390,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             }
         }
         //发送数据
+        // printf("%d\n",send_text.beg);
         if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
             printf("iret=%d\n",iret);
             perror("send");

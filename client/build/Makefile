@@ -123,6 +123,19 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+#=============================================================================
+# Target rules for targets named main_autogen
+
+# Build rule for target.
+main_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main_autogen
+.PHONY : main_autogen
+
+# fast build rule for target.
+main_autogen/fast:
+	$(MAKE) -f CMakeFiles/main_autogen.dir/build.make CMakeFiles/main_autogen.dir/build
+.PHONY : main_autogen/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -150,59 +163,59 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/client.o: src/client.cpp.o
+main_autogen/mocs_compilation.o: main_autogen/mocs_compilation.cpp.o
 
-.PHONY : src/client.o
-
-# target to build an object file
-src/client.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client.cpp.o
-.PHONY : src/client.cpp.o
-
-src/client.i: src/client.cpp.i
-
-.PHONY : src/client.i
-
-# target to preprocess a source file
-src/client.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client.cpp.i
-.PHONY : src/client.cpp.i
-
-src/client.s: src/client.cpp.s
-
-.PHONY : src/client.s
-
-# target to generate assembly for a file
-src/client.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client.cpp.s
-.PHONY : src/client.cpp.s
-
-src/man.o: src/man.cpp.o
-
-.PHONY : src/man.o
+.PHONY : main_autogen/mocs_compilation.o
 
 # target to build an object file
-src/man.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/man.cpp.o
-.PHONY : src/man.cpp.o
+main_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o
+.PHONY : main_autogen/mocs_compilation.cpp.o
 
-src/man.i: src/man.cpp.i
+main_autogen/mocs_compilation.i: main_autogen/mocs_compilation.cpp.i
 
-.PHONY : src/man.i
+.PHONY : main_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-src/man.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/man.cpp.i
-.PHONY : src/man.cpp.i
+main_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.i
+.PHONY : main_autogen/mocs_compilation.cpp.i
 
-src/man.s: src/man.cpp.s
+main_autogen/mocs_compilation.s: main_autogen/mocs_compilation.cpp.s
 
-.PHONY : src/man.s
+.PHONY : main_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-src/man.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/man.cpp.s
-.PHONY : src/man.cpp.s
+main_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.s
+.PHONY : main_autogen/mocs_compilation.cpp.s
+
+src/mainwindow.o: src/mainwindow.cpp.o
+
+.PHONY : src/mainwindow.o
+
+# target to build an object file
+src/mainwindow.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.o
+.PHONY : src/mainwindow.cpp.o
+
+src/mainwindow.i: src/mainwindow.cpp.i
+
+.PHONY : src/mainwindow.i
+
+# target to preprocess a source file
+src/mainwindow.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.i
+.PHONY : src/mainwindow.cpp.i
+
+src/mainwindow.s: src/mainwindow.cpp.s
+
+.PHONY : src/mainwindow.s
+
+# target to generate assembly for a file
+src/mainwindow.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.s
+.PHONY : src/mainwindow.cpp.s
 
 src/stru.o: src/stru.cpp.o
 
@@ -240,15 +253,16 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... main_autogen"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/client.o"
-	@echo "... src/client.i"
-	@echo "... src/client.s"
-	@echo "... src/man.o"
-	@echo "... src/man.i"
-	@echo "... src/man.s"
+	@echo "... main_autogen/mocs_compilation.o"
+	@echo "... main_autogen/mocs_compilation.i"
+	@echo "... main_autogen/mocs_compilation.s"
+	@echo "... src/mainwindow.o"
+	@echo "... src/mainwindow.i"
+	@echo "... src/mainwindow.s"
 	@echo "... src/stru.o"
 	@echo "... src/stru.i"
 	@echo "... src/stru.s"

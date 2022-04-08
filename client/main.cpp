@@ -1,15 +1,11 @@
-#include <iostream>
-#include"./inc/Client.h"
-#include"./inc/Man.h"
-#include"./inc/Stru.h"
+#include "./inc/Mainwindow.h"
+#include <QApplication>
 
-
-int main()
+int main(int argc, char *argv[])
 {
-    class input_client in_clie1;
-    memset(&in_clie1,'\0',sizeof(in_clie1));
-    in_clie1.permit=0;//初始化访问权限
-    man(&in_clie1);
-    client(in_clie1);
-    return 0;
+    QApplication a(argc, argv);
+    mainwindow w;
+    w.show();
+
+    return a.exec();
 }

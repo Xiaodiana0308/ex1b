@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/main_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/main_autogen.dir/ParseCache.txt"
+  "main_autogen"
   "CMakeFiles/main.dir/main.cpp.o"
-  "CMakeFiles/main.dir/src/client.cpp.o"
-  "CMakeFiles/main.dir/src/man.cpp.o"
+  "CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/main.dir/src/mainwindow.cpp.o"
   "CMakeFiles/main.dir/src/stru.cpp.o"
   "main"
   "main.pdb"

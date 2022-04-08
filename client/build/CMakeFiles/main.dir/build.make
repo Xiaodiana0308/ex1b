@@ -57,9 +57,22 @@ include CMakeFiles/main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/main.dir/flags.make
 
+CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o: main_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/mocs_compilation.cpp
+
+CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/mocs_compilation.cpp > CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.i
+
+CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/mocs_compilation.cpp -o CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.s
+
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/main.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/client/main.cpp
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
@@ -70,31 +83,18 @@ CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/client/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
-CMakeFiles/main.dir/src/client.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/client.cpp.o: ../src/client.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/client.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/client.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/client/src/client.cpp
+CMakeFiles/main.dir/src/mainwindow.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/mainwindow.cpp.o: ../src/mainwindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/mainwindow.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/mainwindow.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp
 
-CMakeFiles/main.dir/src/client.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/client.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/client/src/client.cpp > CMakeFiles/main.dir/src/client.cpp.i
+CMakeFiles/main.dir/src/mainwindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/mainwindow.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp > CMakeFiles/main.dir/src/mainwindow.cpp.i
 
-CMakeFiles/main.dir/src/client.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/client.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/client/src/client.cpp -o CMakeFiles/main.dir/src/client.cpp.s
-
-CMakeFiles/main.dir/src/man.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/man.cpp.o: ../src/man.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/man.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/man.cpp.o -c /home/wxq/work/wangluoanquan/ex1b/client/src/man.cpp
-
-CMakeFiles/main.dir/src/man.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/man.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wxq/work/wangluoanquan/ex1b/client/src/man.cpp > CMakeFiles/main.dir/src/man.cpp.i
-
-CMakeFiles/main.dir/src/man.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/man.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/client/src/man.cpp -o CMakeFiles/main.dir/src/man.cpp.s
+CMakeFiles/main.dir/src/mainwindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/mainwindow.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp -o CMakeFiles/main.dir/src/mainwindow.cpp.s
 
 CMakeFiles/main.dir/src/stru.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/stru.cpp.o: ../src/stru.cpp
@@ -111,19 +111,22 @@ CMakeFiles/main.dir/src/stru.cpp.s: cmake_force
 
 # Object files for target main
 main_OBJECTS = \
+"CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/main.dir/main.cpp.o" \
-"CMakeFiles/main.dir/src/client.cpp.o" \
-"CMakeFiles/main.dir/src/man.cpp.o" \
+"CMakeFiles/main.dir/src/mainwindow.cpp.o" \
 "CMakeFiles/main.dir/src/stru.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
+main: CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o
 main: CMakeFiles/main.dir/main.cpp.o
-main: CMakeFiles/main.dir/src/client.cpp.o
-main: CMakeFiles/main.dir/src/man.cpp.o
+main: CMakeFiles/main.dir/src/mainwindow.cpp.o
 main: CMakeFiles/main.dir/src/stru.cpp.o
 main: CMakeFiles/main.dir/build.make
+main: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
+main: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8
+main: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)

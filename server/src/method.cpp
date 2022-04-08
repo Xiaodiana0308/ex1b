@@ -59,10 +59,15 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
     {
         if(strcmp(fn.filen[i],path_in)==0){
             //进入目录
-            char pathname[550]={0};
+            char pathname[500]={0};
             sprintf(pathname,"%s/%s",(*save_c).filename,path_in);
-            memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
-            memcpy(&(*save_c).filename,pathname,sizeof(pathname));
+            memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));//重要：strlen有效内容空间，sizeof整个空间
+            for(int i=0;i<500;i++)
+            {
+                (*save_c).filename[i]='\0';
+            }
+            memcpy(&(*save_c).filename,pathname,sizeof(pathname));//注意，memcpy中，复制内容大小不可以超过写入的内容大小!!!
+            printf("4=%s\n",(*save_c).name);
             return 0;
         }
         i++;
@@ -77,7 +82,10 @@ int list_03(class get_client *save_c)//返回上一目录
     char rootpath[500]={0};//根本目录
     const char *datapath="/home/wxq/work/wangluoanquan/ex1b/serverdata";//此为服务端存储根目录
     sprintf(rootpath,"%s/%s",datapath,(*save_c).name);
-    if(strcmp(rootpath,(*save_c).filename)==0){
+    int path1=strlen(rootpath);
+    int path2=strlen((*save_c).filename);
+    // printf("%s\n%s\n",rootpath,(*save_c).filename);
+    if((strcmp(rootpath,(*save_c).filename)==0)||(path1>=path2)){
         return -1;//错误：无法访问上一级目录
     }
     //可以返回
@@ -94,7 +102,11 @@ int list_03(class get_client *save_c)//返回上一目录
 
     }
     // printf("%s\n",newpath);
-    memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
+    // memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));
+    for(int i=0;i<500;i++)
+    {
+        (*save_c).filename[i]='\0';
+    }
     memcpy(&(*save_c).filename,newpath,sizeof(newpath));
     return 0;
 }
@@ -111,7 +123,7 @@ int list_04(class get_client *save_c,char *path_create)//创建文件夹
         }
     }
     //不存在，创建文件夹
-    char newpath[550]={0};//不改变当前所在路径
+    char newpath[500]={0};//不改变当前所在路径
     sprintf(newpath,"%s/%s",(*save_c).filename,path_create);//不允许给字符串指针赋值
     int mkdirretval;
     umask(0);
@@ -131,7 +143,7 @@ int list_05(class get_client *save_c,char *path_dele)//删除目录
     for(int i=0;i<50;i++)
     {
         if(strcmp(fn.filen[i],path_dele)==0){
-            char delpath[550]={0};//不改变当前所在路径
+            char delpath[500]={0};//不改变当前所在路径
             char order_cd[3]="cd";
             char order_del[7]="rm -rf";
             sprintf(delpath,"%s %s && %s %s",order_cd,(*save_c).filename,order_del,path_dele);//命令：进入并删除文件
