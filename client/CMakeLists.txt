@@ -17,6 +17,13 @@ SET(CMAKE_AUTORCC ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 #该开关主要是设置前面几个自动生成的文件路径可识别 
 
+find_package(OpenSSL REQUIRED)
+
+set(DEP_LIBS
+    OpenSSL::Crypto OpenSSL::SSL  # modern
+    #${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY}  # old style
+)
+
 # if(ANDROID)
 #  add_library(Test SHARED
 #   main.cpp

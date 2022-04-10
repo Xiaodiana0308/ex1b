@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/main.cpp.o"
   "CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/main.dir/src/mainwindow.cpp.o"
+  "CMakeFiles/main.dir/src/secure.cpp.o"
   "CMakeFiles/main.dir/src/stru.cpp.o"
   "main"
   "main.pdb"

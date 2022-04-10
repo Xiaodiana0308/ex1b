@@ -22,6 +22,7 @@
 #include <assert.h>
 #include <fstream>
 #include"Stru.h"
+#include"Secure.h"
 
 
 class mainwindow : public QMainWindow

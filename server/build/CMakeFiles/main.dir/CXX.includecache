@@ -24,6 +24,32 @@ dirent.h
 Stru.h
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
 
+/home/wxq/work/wangluoanquan/ex1b/server/inc/Secure.h
+iostream
+-
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+netdb.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+errno.h
+-
+assert.h
+-
+fstream
+-
+Stru.h
+/home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
+
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
 iostream
 -
@@ -55,6 +81,8 @@ Sett.h
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
 Method.h
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
+Secure.h
+/home/wxq/work/wangluoanquan/ex1b/server/inc/Secure.h
 
 /home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
 iostream
@@ -69,6 +97,10 @@ iostream
 -
 string
 -
+
+/home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp
+./../inc/Method.h
+/home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
 
 /home/wxq/work/wangluoanquan/ex1b/server/src/server.cpp
 ./../inc/Server.h

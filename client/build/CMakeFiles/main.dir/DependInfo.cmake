@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/wxq/work/wangluoanquan/ex1b/client/main.cpp" "/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles/main.dir/main.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/mocs_compilation.cpp" "/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp" "/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles/main.dir/src/mainwindow.cpp.o"
+  "/home/wxq/work/wangluoanquan/ex1b/client/src/secure.cpp" "/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles/main.dir/src/secure.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/client/src/stru.cpp" "/home/wxq/work/wangluoanquan/ex1b/client/build/CMakeFiles/main.dir/src/stru.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

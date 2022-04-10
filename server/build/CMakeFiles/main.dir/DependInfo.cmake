@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/wxq/work/wangluoanquan/ex1b/server/main.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/main.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/src/method.cpp.o"
+  "/home/wxq/work/wangluoanquan/ex1b/server/src/secure.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/src/secure.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/server/src/server.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/src/server.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/server/src/sett.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/src/sett.cpp.o"
   "/home/wxq/work/wangluoanquan/ex1b/server/src/stru.cpp" "/home/wxq/work/wangluoanquan/ex1b/server/build/CMakeFiles/main.dir/src/stru.cpp.o"

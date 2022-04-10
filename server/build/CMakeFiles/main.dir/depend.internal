@@ -3,6 +3,7 @@
 
 CMakeFiles/main.dir/main.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
+ /home/wxq/work/wangluoanquan/ex1b/server/inc/Secure.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
@@ -11,8 +12,13 @@ CMakeFiles/main.dir/src/method.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/server/src/method.cpp
+CMakeFiles/main.dir/src/secure.cpp.o
+ /home/wxq/work/wangluoanquan/ex1b/server/inc/Secure.h
+ /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h
+ /home/wxq/work/wangluoanquan/ex1b/server/src/secure.cpp
 CMakeFiles/main.dir/src/server.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Method.h
+ /home/wxq/work/wangluoanquan/ex1b/server/inc/Secure.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Server.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Sett.h
  /home/wxq/work/wangluoanquan/ex1b/server/inc/Stru.h

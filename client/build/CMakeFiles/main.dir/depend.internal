@@ -3,6 +3,7 @@
 
 CMakeFiles/main.dir/main.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/client/inc/Mainwindow.h
+ /home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
  /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/client/main.cpp
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
@@ -138,6 +139,7 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
 CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o
  ../inc/Mainwindow.h
+ ../inc/Secure.h
  ../inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/DIG64O274K/moc_Mainwindow.cpp
  /home/wxq/work/wangluoanquan/ex1b/client/build/main_autogen/mocs_compilation.cpp
@@ -274,6 +276,7 @@ CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
 CMakeFiles/main.dir/src/mainwindow.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/client/inc/Mainwindow.h
+ /home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
  /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
@@ -407,6 +410,10 @@ CMakeFiles/main.dir/src/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
+CMakeFiles/main.dir/src/secure.cpp.o
+ /home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
+ /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
+ /home/wxq/work/wangluoanquan/ex1b/client/src/secure.cpp
 CMakeFiles/main.dir/src/stru.cpp.o
  /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
  /home/wxq/work/wangluoanquan/ex1b/client/src/stru.cpp

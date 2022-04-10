@@ -110,8 +110,8 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                     if(strcmp((*npd).name[i],get_text.name)==0){
                         if(strcmp((*npd).password[i],get_text.password)==0){
                             //注入用户信息
-                            memcpy(&save_c.name,get_text.name,sizeof(get_text.name));
-                            memcpy(&save_c,get_text.password,sizeof(get_text.password));//整个连接过程中有效
+                            memcpy(&save_c.name,get_text.name,strlen(get_text.name));
+                            memcpy(&save_c.password,get_text.password,strlen(get_text.password));//整个连接过程中有效
                             printf("登录用户名:%s\n",get_text.name);
                             list_00(&save_c);//自动进入目录
 
@@ -230,8 +230,11 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             }
             case 5:{//客户端下载模式
                 printf("客户端下载模式:\n");
+                char name_l[50]={0};//临时存储文件名
+                memcpy(&name_l,get_text.text,sizeof(get_text.text));
                 char filepath[500]={0};
-                sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
+                sprintf(filepath,"%s/aes256_%s",save_c.filename,name_l);//建立完整路径
+                secure_enc(save_c,name_l);
                 ifstream readfile;//读文件指针
                 readfile.open(filepath,ios::binary | ios::in);//二进制形式打开
                 if(!readfile.is_open()){
@@ -285,6 +288,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                             send_text.seq=i;
                             send_text.ack=0;
                             send_text.max=0;
+                            secure_del(save_c,name_l);
                         }
                         else {//上传继续
                             send_text.beg=25;//继续报头
@@ -312,9 +316,11 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             case 6:{//客户端上传模式
                 printf("客户端上传模式:\n");
                 char filepath[500]={0};
+                char name_l[50]={0};//临时存储文件名
+                memcpy(&name_l,get_text.text,sizeof(get_text.text));
                 int ack=0;//确认接收数据包用
                 int max=get_text.max;//写入文件大小
-                sprintf(filepath,"%s/%s",save_c.filename,get_text.text);//建立完整路径
+                sprintf(filepath,"%s/aes256_%s",save_c.filename,get_text.text);//建立完整路径
                 printf("文件大小=%d字节，文件名=%s\n",get_text.max,get_text.text);
                 
                 ofstream writefile;
@@ -376,6 +382,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                         printf("上传文件完成");
                         send_text.beg=16;
                         writefile.close();
+                        secure_dec(save_c,name_l);
                         break;//最后一次传输回复交由统一发送
                     }
                     else send_text.beg=26;

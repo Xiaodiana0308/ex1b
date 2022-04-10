@@ -61,7 +61,7 @@ int list_02(class get_client *save_c,char *path_in)//进入目录
             //进入目录
             char pathname[500]={0};
             sprintf(pathname,"%s/%s",(*save_c).filename,path_in);
-            memset(&(*save_c).filename,'\0',sizeof((*save_c).filename));//重要：strlen有效内容空间，sizeof整个空间
+            memset(&(*save_c).filename,'\0',strlen((*save_c).filename));//重要：strlen有效内容空间，sizeof整个空间
             for(int i=0;i<500;i++)
             {
                 (*save_c).filename[i]='\0';

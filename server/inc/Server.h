@@ -16,6 +16,7 @@
 #include"Stru.h"
 #include"Sett.h"
 #include"Method.h"
+#include"Secure.h"
 
 using namespace std;
 

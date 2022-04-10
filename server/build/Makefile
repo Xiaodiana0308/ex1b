@@ -177,6 +177,33 @@ src/method.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/method.cpp.s
 .PHONY : src/method.cpp.s
 
+src/secure.o: src/secure.cpp.o
+
+.PHONY : src/secure.o
+
+# target to build an object file
+src/secure.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/secure.cpp.o
+.PHONY : src/secure.cpp.o
+
+src/secure.i: src/secure.cpp.i
+
+.PHONY : src/secure.i
+
+# target to preprocess a source file
+src/secure.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/secure.cpp.i
+.PHONY : src/secure.cpp.i
+
+src/secure.s: src/secure.cpp.s
+
+.PHONY : src/secure.s
+
+# target to generate assembly for a file
+src/secure.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/secure.cpp.s
+.PHONY : src/secure.cpp.s
+
 src/server.o: src/server.cpp.o
 
 .PHONY : src/server.o
@@ -300,6 +327,9 @@ help:
 	@echo "... src/method.o"
 	@echo "... src/method.i"
 	@echo "... src/method.s"
+	@echo "... src/secure.o"
+	@echo "... src/secure.i"
+	@echo "... src/secure.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

@@ -317,7 +317,6 @@ void mainwindow::QPu7_slots()//删除文件夹
 
 void mainwindow::QPu8_slots()//下载文件
 {
-    char path[450]={0};
     QByteArray ba;//转化QString对象
     QString Qlis,Qfile;//目录、文件名
     char *p=NULL;
@@ -330,7 +329,8 @@ void mainwindow::QPu8_slots()//下载文件
         return;
     }
     p=ba.data();
-    memcpy(&path,p,strlen(p));
+    memset(&this->in_clie1.send_filepath,'\0',strlen(this->in_clie1.send_filepath));
+    memcpy(&this->in_clie1.send_filepath,p,strlen(p));
 
     ba= Qfile.toLatin1();
     if(strlen(ba.data())==0){
@@ -341,11 +341,10 @@ void mainwindow::QPu8_slots()//下载文件
     p=ba.data();
     memset(&(this->in_clie1.send_filename),'\0',strlen(this->in_clie1.send_filename));
     memcpy(&(this->in_clie1.send_filename),p,strlen(p));//文件名
-    memset(&(this->in_clie1.send_filepath),'\0',strlen(this->in_clie1.send_filepath));
-    sprintf(this->in_clie1.send_filepath,"%s%s",path,this->in_clie1.send_filename);//全路径
+
+    secure_est(&this->in_clie1);//修改总路径
     memset(&(this->text_out),'\0',sizeof(struct packet));
     this->in_clie1.beg=5;
-    // printf("1=%s\n,2=%s\n",this->in_clie1.send_filename,this->in_clie1.send_filepath);
     client();
     this->QLin5->clear();
     this->QLin6->clear();
@@ -354,7 +353,6 @@ void mainwindow::QPu8_slots()//下载文件
 
 void mainwindow::QPu9_slots()//上传文件
 {
-    char path[450]={0};
     QByteArray ba;//转化QString对象
     QString Qlis,Qfile;//目录、文件名
     char *p=NULL;
@@ -367,7 +365,8 @@ void mainwindow::QPu9_slots()//上传文件
         return;
     }
     p=ba.data();
-    memcpy(&path,p,strlen(p));
+    memset(&this->in_clie1.send_filepath,'\0',strlen(this->in_clie1.send_filepath));
+    memcpy(&this->in_clie1.send_filepath,p,strlen(p));
 
     ba= Qfile.toLatin1();
     if(strlen(ba.data())==0){
@@ -378,8 +377,8 @@ void mainwindow::QPu9_slots()//上传文件
     p=ba.data();
     memset(&(this->in_clie1.send_filename),'\0',strlen(this->in_clie1.send_filename));
     memcpy(&(this->in_clie1.send_filename),p,strlen(p));//文件名
-    memset(&(this->in_clie1.send_filepath),'\0',strlen(this->in_clie1.send_filepath));
-    sprintf(this->in_clie1.send_filepath,"%s%s",path,this->in_clie1.send_filename);//全路径
+    
+    secure_enc(&this->in_clie1);//修改总路径
     memset(&(this->text_out),'\0',sizeof(struct packet));
     this->in_clie1.beg=6;
     client();
@@ -491,7 +490,7 @@ void mainwindow::client()//主通信
             }
             std::ofstream writefile;//写文件指针
             //能否打开
-            writefile.open(this->in_clie1.send_filepath,std::ios::binary);
+            writefile.open(this->in_clie1.send_full,std::ios::binary);
             if(!writefile.is_open()){
                 QMessageBox::warning(NULL, QStringLiteral("警告"), QStringLiteral("路径或文件名错误!"), QMessageBox::Yes, QMessageBox::Yes);
                 break;//跳出
@@ -561,6 +560,7 @@ void mainwindow::client()//主通信
                     this->Qprog->close();
                     this->text_out.beg=15;
                     writefile.close();
+                    secure_del(&this->in_clie1);
                     break;//交由统一发送
                 }
                 else this->text_out.beg=25;
@@ -569,7 +569,7 @@ void mainwindow::client()//主通信
         }
         case 6:{//上传模式
             std::ifstream readfile;//读文件指针
-            readfile.open(this->in_clie1.send_filepath,std::ios::binary);//二进制形式打开
+            readfile.open(this->in_clie1.send_full,std::ios::binary);//二进制形式打开
             if(!readfile.is_open()){
                 QMessageBox::warning(NULL, QStringLiteral("警告"), QStringLiteral("本地无法找到该文件"), QMessageBox::Yes, QMessageBox::Yes);
                 break;//跳出
@@ -645,6 +645,7 @@ void mainwindow::client()//主通信
                         this->text_out.seq=i;
                         this->text_out.ack=0;
                         this->text_out.max=0;
+                        secure_del(&this->in_clie1);
                         break;
                     }
                     else {//上传继续

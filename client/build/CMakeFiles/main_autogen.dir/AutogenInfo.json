@@ -13,6 +13,11 @@
 			"DIG64O274K/moc_Mainwindow.cpp"
 		],
 		[
+			"/home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h",
+			"MU",
+			"DIG64O274K/moc_Secure.cpp"
+		],
+		[
 			"/home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h",
 			"MU",
 			"DIG64O274K/moc_Stru.cpp"
@@ -72,6 +77,7 @@
 	[
 		[ "/home/wxq/work/wangluoanquan/ex1b/client/main.cpp", "MU" ],
 		[ "/home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp", "MU" ],
+		[ "/home/wxq/work/wangluoanquan/ex1b/client/src/secure.cpp", "MU" ],
 		[ "/home/wxq/work/wangluoanquan/ex1b/client/src/stru.cpp", "MU" ]
 	],
 	"UIC_OPTIONS" : [],

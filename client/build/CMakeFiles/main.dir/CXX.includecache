@@ -47,6 +47,34 @@ fstream
 -
 Stru.h
 /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
+Secure.h
+/home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
+
+/home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
+iostream
+-
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+netdb.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+errno.h
+-
+assert.h
+-
+fstream
+-
+Stru.h
+/home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
 
 /home/wxq/work/wangluoanquan/ex1b/client/inc/Stru.h
 iostream
@@ -57,6 +85,10 @@ string
 /home/wxq/work/wangluoanquan/ex1b/client/src/mainwindow.cpp
 ./../inc/Mainwindow.h
 /home/wxq/work/wangluoanquan/ex1b/client/inc/Mainwindow.h
+
+/home/wxq/work/wangluoanquan/ex1b/client/src/secure.cpp
+./../inc/Secure.h
+/home/wxq/work/wangluoanquan/ex1b/client/inc/Secure.h
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
 QtCore/qglobal.h

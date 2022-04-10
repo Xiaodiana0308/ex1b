@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/main.dir/main.cpp.o"
   "CMakeFiles/main.dir/src/method.cpp.o"
+  "CMakeFiles/main.dir/src/secure.cpp.o"
   "CMakeFiles/main.dir/src/server.cpp.o"
   "CMakeFiles/main.dir/src/sett.cpp.o"
   "CMakeFiles/main.dir/src/stru.cpp.o"
