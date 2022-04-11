@@ -52,7 +52,7 @@ int secure_dec(class input_client *clie)//解密解压缩函数[下载用]
     int ssl;
     if((ssl=system(fullpath))!=0){
         perror("system");
-        return -1;
+        // return -1;
     }
     //删除临时文件
     char fullpath1[700]={0};

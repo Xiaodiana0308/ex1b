@@ -3,7 +3,7 @@
 int secure_enc(class get_client clie,char name[50])
 {
     char fullpath[700];
-    sprintf(fullpath,"cd %s && openssl enc -e -aes256 -k %s -pbkdf2 -in %s -out aes256_%s",clie.filename,clie.password,name);
+    sprintf(fullpath,"cd %s && openssl enc -e -aes256 -k %s -pbkdf2 -in %s -out aes256_%s",clie.filename,clie.password,name,name);
     // printf("1=%s\n",fullpath);
     int ssl;
     if((ssl=system(fullpath))!=0){

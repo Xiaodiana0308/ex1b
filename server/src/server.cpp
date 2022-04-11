@@ -231,8 +231,8 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             case 5:{//客户端下载模式
                 printf("客户端下载模式:\n");
                 char name_l[50]={0};//临时存储文件名
-                memcpy(&name_l,get_text.text,sizeof(get_text.text));
-                char filepath[500]={0};
+                memcpy(&name_l,get_text.text,strlen(get_text.text));//文件名必然不大
+                char filepath[700]={0};
                 sprintf(filepath,"%s/aes256_%s",save_c.filename,name_l);//建立完整路径
                 secure_enc(save_c,name_l);
                 ifstream readfile;//读文件指针
@@ -379,7 +379,7 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
                     send_text.seq=0;
                     send_text.max=0;
                     if(get_text.beg==16){
-                        printf("上传文件完成");
+                        printf("上传文件完成\n");
                         send_text.beg=16;
                         writefile.close();
                         secure_dec(save_c,name_l);

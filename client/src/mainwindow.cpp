@@ -377,7 +377,7 @@ void mainwindow::QPu9_slots()//上传文件
     p=ba.data();
     memset(&(this->in_clie1.send_filename),'\0',strlen(this->in_clie1.send_filename));
     memcpy(&(this->in_clie1.send_filename),p,strlen(p));//文件名
-    
+
     secure_enc(&this->in_clie1);//修改总路径
     memset(&(this->text_out),'\0',sizeof(struct packet));
     this->in_clie1.beg=6;
@@ -560,7 +560,7 @@ void mainwindow::client()//主通信
                     this->Qprog->close();
                     this->text_out.beg=15;
                     writefile.close();
-                    secure_del(&this->in_clie1);
+                    secure_dec(&this->in_clie1);
                     break;//交由统一发送
                 }
                 else this->text_out.beg=25;
