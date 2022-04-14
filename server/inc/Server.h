@@ -14,7 +14,6 @@
 #include <assert.h>
 #include <fstream>
 #include"Stru.h"
-#include"Sett.h"
 #include"Method.h"
 #include"Secure.h"
 

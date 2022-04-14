@@ -135,9 +135,24 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             }
             case 3:{//退出
                 printf("收到注销请求\n");
+                send_text.beg=3;
+                if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
+                    printf("iret=%d\n",iret);
+                    perror("send");
+                    close(listenfd);
+                    close(clientfd);
+                    return -1;
+                }
                 close(listenfd);
                 close(clientfd);
-                return iname;
+                return iname;//直接关闭连接
+            }
+            case 30:{//删除
+                printf("收到删除请求\n");
+                list_dele(&save_c);
+                memset(&save_c,'\0',sizeof(save_c));//及时清空
+                iname=iname;//仍然为空
+                send_text.beg=30;
                 break;
             }
             case 4:{//目录操作模式
@@ -397,7 +412,6 @@ int server(class get_server get_serv,struct name_password *npd,int iname)
             }
         }
         //发送数据
-        // printf("%d\n",send_text.beg);
         if((iret=send(clientfd,&send_text,sizeof(struct packet),0))<=0){
             printf("iret=%d\n",iret);
             perror("send");

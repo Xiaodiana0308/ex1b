@@ -48,6 +48,7 @@ class mainwindow : public QMainWindow
         QPushButton *QPu0;//注册按钮1
         QPushButton *QPu1;//登录按钮2
         QPushButton *QPu2;//注销按钮3
+        QPushButton *QPu20;//删除按钮30
         QPushButton *QPu3;//查看当前目录按钮4
         QPushButton *QPu4;//进入目录按钮5
         QPushButton *QPu5;//返回上一级目录按钮6
@@ -76,6 +77,7 @@ public slots:
     void QPu0_slots();//连接注册
     void QPu1_slots();//登录
     void QPu2_slots();//注销
+    void QPu20_slots();//删除
     void QPu3_slots();//查看当前目录
     void QPu4_slots();//进入目录
     void QPu5_slots();//返回上一级目录

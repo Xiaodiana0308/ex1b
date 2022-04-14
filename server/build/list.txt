@@ -1,1 +1,26 @@
 连接建立
+收到注册请求
+注册用户名:wxq
+create path:/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到登录请求
+收到登录请求
+登录用户名:wxq
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到新建文件夹请求
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到进入目录请求
+4=wxq
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq/wxq1
+收到返回上一目录请求
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到返回上一目录请求
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到新建文件夹请求
+客户端上传模式:
+文件大小=3148272字节，文件名=text.png
+上传文件完成
+客户端下载模式:
+当前路径=/home/wxq/work/wangluoanquan/ex1b/serverdata/wxq
+收到查看目录文件请求
+收到删除请求
+iret=0

@@ -23,6 +23,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     this->QPu0=new QPushButton(this);
     this->QPu1=new QPushButton(this);
     this->QPu2=new QPushButton(this);
+    this->QPu20=new QPushButton(this);
     this->QPu3=new QPushButton(this);
     this->QPu4=new QPushButton(this);
     this->QPu5=new QPushButton(this);
@@ -49,6 +50,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     this->QPu0->setObjectName(QStringLiteral("but0"));
     this->QPu1->setObjectName(QStringLiteral("but1"));
     this->QPu2->setObjectName(QStringLiteral("but2"));
+    this->QPu20->setObjectName(QStringLiteral("but20"));
     this->QPu3->setObjectName(QStringLiteral("but3"));
     this->QPu4->setObjectName(QStringLiteral("but4"));
     this->QPu5->setObjectName(QStringLiteral("but5"));
@@ -71,6 +73,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     this->QPu0->setText("注册");
     this->QPu1->setText("登录");
     this->QPu2->setText("注销");
+    this->QPu20->setText("删除");
     this->QPu3->setText("查看当前目录");
     this->QPu4->setText("进入目录");
     this->QPu5->setText("返回上一级目录");
@@ -96,6 +99,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     this->QLin5->setClearButtonEnabled(true);
     this->QLin6->setClearButtonEnabled(true);
     //设置初始不可用按钮
+    this->QPu20->setEnabled(false);
     this->QPu3->setEnabled(false);
     this->QPu4->setEnabled(false);
     this->QPu5->setEnabled(false);
@@ -122,6 +126,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     this->QPu0->setGeometry(QRect(250,600,100,50));
     this->QPu1->setGeometry(QRect(500,600,100,50));
     this->QPu2->setGeometry(QRect(750,600,100,50));
+    this->QPu20->setGeometry(QRect(900,600,100,50));
     this->QPu3->setGeometry(QRect(900,100,250,40));
     this->QPu4->setGeometry(QRect(900,150,250,40));
     this->QPu5->setGeometry(QRect(900,200,250,40));
@@ -133,6 +138,7 @@ mainwindow::mainwindow(QWidget *parent) :QMainWindow(parent)
     QObject::connect(this->QPu0,&QPushButton::clicked,this,&mainwindow::QPu0_slots);
     QObject::connect(this->QPu1,&QPushButton::clicked,this,&mainwindow::QPu1_slots);
     QObject::connect(this->QPu2,&QPushButton::clicked,this,&mainwindow::QPu2_slots);
+    QObject::connect(this->QPu20,&QPushButton::clicked,this,&mainwindow::QPu20_slots);
     QObject::connect(this->QPu3,&QPushButton::clicked,this,&mainwindow::QPu3_slots);
     QObject::connect(this->QPu4,&QPushButton::clicked,this,&mainwindow::QPu4_slots);
     QObject::connect(this->QPu5,&QPushButton::clicked,this,&mainwindow::QPu5_slots);
@@ -219,6 +225,7 @@ void mainwindow::QPu1_slots()//登录
     memset(&(this->text_out),'\0',sizeof(struct packet));
     client();
     if(this->in_clie1.permit==1){
+        this->QPu20->setEnabled(true);
         this->QPu3->setEnabled(true);
         this->QPu4->setEnabled(true);
         this->QPu5->setEnabled(true);
@@ -395,6 +402,25 @@ void mainwindow::QPu2_slots()//退出并关闭连接
     this->QLin5->clear();
     this->QLa5->clear();
     if(this->in_clie1.permit==0){
+        this->QPu20->setEnabled(false);
+        this->QPu3->setEnabled(false);
+        this->QPu4->setEnabled(false);
+        this->QPu5->setEnabled(false);
+        this->QPu6->setEnabled(false);
+        this->QPu7->setEnabled(false);
+        this->QPu8->setEnabled(false);
+        this->QPu9->setEnabled(false);
+    }
+}
+
+void mainwindow::QPu20_slots()//删除用户
+{
+    this->in_clie1.beg=30;
+    client();
+    this->QLin5->clear();
+    this->QLa5->clear();
+    if(this->in_clie1.permit==0){
+        this->QPu20->setEnabled(false);
         this->QPu3->setEnabled(false);
         this->QPu4->setEnabled(false);
         this->QPu5->setEnabled(false);
@@ -676,7 +702,7 @@ void mainwindow::client()//主通信
             //提示框
             QMessageBox msgBox;
             msgBox.setText("提示");
-            msgBox.setInformativeText("是否关闭连接?");
+            msgBox.setInformativeText("是否退出登录并关闭连接?");
             msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
             msgBox.setDefaultButton(QMessageBox::Yes);
             int ret = msgBox.exec();
@@ -690,17 +716,30 @@ void mainwindow::client()//主通信
                     return;
             }
             this->text_out.beg=this->in_clie1.beg;
-            if((iret=send(sockfd,&(this->text_out),sizeof(struct packet),0))<=0){
-                printf("iret=%d\n",iret);
-                perror("send");
-                QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("成功关闭连接"), QMessageBox::Yes, QMessageBox::Yes);// 添加提示;
-                ::close(sockfd);
-                return;
+            break;//主通信部分发送
+        }
+        case 30:{//删除用户
+            if(this->in_clie1.permit==0){
+                return;//未连接情况下什么也不干
             }
-            ::close(sockfd);
-            this->in_clie1.permit==0;
-            user_if=0;
-            return;
+            //提示框
+            QMessageBox msgBox;
+            msgBox.setText("提示");
+            msgBox.setInformativeText("是否删除账号?");
+            msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            int ret = msgBox.exec();
+            switch(ret)
+            {
+                case QMessageBox::No:
+                    return;
+                case QMessageBox::Yes:
+                    break;
+                default:
+                    return;
+            }
+            this->text_out.beg=this->in_clie1.beg;
+            break;//交由主通信发送，未断开连接
         }
         default:{
             QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("请重新输入指令"), QMessageBox::Yes,QMessageBox::Yes);// 添加提示;
@@ -781,6 +820,19 @@ void mainwindow::client()//主通信
         case 16:{//上传文件完毕响应
             QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("发送文件完成"), QMessageBox::Yes, QMessageBox::Yes);
             break;
+        }
+        case 30:{//删除成功响应
+            QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("成功删除用户!"), QMessageBox::Yes, QMessageBox::Yes);// 添加提示;
+            user_if=0;
+            memset(&(this->in_clie1),'\0',sizeof(this->in_clie1));//及时清空
+            break;
+        }
+        case 3:{//退出成功响应
+            ::close(sockfd);
+            QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("成功关闭连接"), QMessageBox::Yes, QMessageBox::Yes);// 添加提示;
+            this->in_clie1.permit==0;
+            user_if=0;
+            return;
         }
         default:{
             QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("请重新选择功能"), QMessageBox::Yes, QMessageBox::Yes);// 提示;

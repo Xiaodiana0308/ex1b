@@ -158,3 +158,15 @@ int list_05(class get_client *save_c,char *path_dele)//删除目录
     }
     return -1;//错误：不存在文件夹
 }
+
+int list_dele(class get_client *save_c)
+{
+    const char *datapath="/home/wxq/work/wangluoanquan/ex1b/serverdata/";//此为服务端存储根目录
+    char delepath[1000];
+    sprintf(delepath,"cd %s && rm -rf %s",datapath,(*save_c).name);//命令：删除所有文件
+    int deleretval;
+    if((deleretval=system(delepath))!=0){
+        perror("system");
+        return -1;
+    }
+}

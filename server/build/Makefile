@@ -123,6 +123,19 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+#=============================================================================
+# Target rules for targets named main_autogen
+
+# Build rule for target.
+main_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main_autogen
+.PHONY : main_autogen
+
+# fast build rule for target.
+main_autogen/fast:
+	$(MAKE) -f CMakeFiles/main_autogen.dir/build.make CMakeFiles/main_autogen.dir/build
+.PHONY : main_autogen/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -149,6 +162,60 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+main_autogen/mocs_compilation.o: main_autogen/mocs_compilation.cpp.o
+
+.PHONY : main_autogen/mocs_compilation.o
+
+# target to build an object file
+main_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.o
+.PHONY : main_autogen/mocs_compilation.cpp.o
+
+main_autogen/mocs_compilation.i: main_autogen/mocs_compilation.cpp.i
+
+.PHONY : main_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+main_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.i
+.PHONY : main_autogen/mocs_compilation.cpp.i
+
+main_autogen/mocs_compilation.s: main_autogen/mocs_compilation.cpp.s
+
+.PHONY : main_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+main_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main_autogen/mocs_compilation.cpp.s
+.PHONY : main_autogen/mocs_compilation.cpp.s
+
+src/mainwindow.o: src/mainwindow.cpp.o
+
+.PHONY : src/mainwindow.o
+
+# target to build an object file
+src/mainwindow.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.o
+.PHONY : src/mainwindow.cpp.o
+
+src/mainwindow.i: src/mainwindow.cpp.i
+
+.PHONY : src/mainwindow.i
+
+# target to preprocess a source file
+src/mainwindow.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.i
+.PHONY : src/mainwindow.cpp.i
+
+src/mainwindow.s: src/mainwindow.cpp.s
+
+.PHONY : src/mainwindow.s
+
+# target to generate assembly for a file
+src/mainwindow.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/mainwindow.cpp.s
+.PHONY : src/mainwindow.cpp.s
 
 src/method.o: src/method.cpp.o
 
@@ -231,33 +298,6 @@ src/server.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.cpp.s
 .PHONY : src/server.cpp.s
 
-src/sett.o: src/sett.cpp.o
-
-.PHONY : src/sett.o
-
-# target to build an object file
-src/sett.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/sett.cpp.o
-.PHONY : src/sett.cpp.o
-
-src/sett.i: src/sett.cpp.i
-
-.PHONY : src/sett.i
-
-# target to preprocess a source file
-src/sett.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/sett.cpp.i
-.PHONY : src/sett.cpp.i
-
-src/sett.s: src/sett.cpp.s
-
-.PHONY : src/sett.s
-
-# target to generate assembly for a file
-src/sett.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/sett.cpp.s
-.PHONY : src/sett.cpp.s
-
 src/stru.o: src/stru.cpp.o
 
 .PHONY : src/stru.o
@@ -321,9 +361,16 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... main_autogen"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... main_autogen/mocs_compilation.o"
+	@echo "... main_autogen/mocs_compilation.i"
+	@echo "... main_autogen/mocs_compilation.s"
+	@echo "... src/mainwindow.o"
+	@echo "... src/mainwindow.i"
+	@echo "... src/mainwindow.s"
 	@echo "... src/method.o"
 	@echo "... src/method.i"
 	@echo "... src/method.s"
@@ -333,9 +380,6 @@ help:
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"
-	@echo "... src/sett.o"
-	@echo "... src/sett.i"
-	@echo "... src/sett.s"
 	@echo "... src/stru.o"
 	@echo "... src/stru.i"
 	@echo "... src/stru.s"

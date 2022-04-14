@@ -26,6 +26,8 @@ int list_04(class get_client *save_c,char *path_create);//新建path_create文�
 
 int list_05(class get_client *save_c,char *path_dele);//删除path_dele文件夹
 
+int list_dele(class get_client *save_c);//删除用户所有文件夹
+
 //文件操作
 
 
